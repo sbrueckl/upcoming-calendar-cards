@@ -6,7 +6,8 @@ typedef struct {
   GColor  PrimaryColor;
   GColor  SecondaryColor;
   GColor  TextColor;
-  uint8_t TemperatureUnit;  // 0 = Celsius, 1 = Fahrenheit
+  uint8_t TemperatureUnit;    // 0 = Celsius, 1 = Fahrenheit
+  uint8_t CountdownPosition;  // 0 = top (above event name), 1 = bottom
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -54,10 +55,11 @@ static GPath    *s_diag_path = NULL;
 // ---- Settings ----
 
 static void prv_default_settings(void) {
-  s_settings.PrimaryColor     = PBL_IF_COLOR_ELSE(GColorCadetBlue, GColorBlack);
-  s_settings.SecondaryColor   = PBL_IF_COLOR_ELSE(GColorSunsetOrange, GColorBlack);
-  s_settings.TextColor        = GColorWhite;
-  s_settings.TemperatureUnit  = 0;
+  s_settings.PrimaryColor        = PBL_IF_COLOR_ELSE(GColorCadetBlue, GColorBlack);
+  s_settings.SecondaryColor      = PBL_IF_COLOR_ELSE(GColorSunsetOrange, GColorBlack);
+  s_settings.TextColor           = GColorWhite;
+  s_settings.TemperatureUnit     = 0;
+  s_settings.CountdownPosition   = 0;
 }
 
 static void prv_save_settings(void) {
@@ -108,6 +110,37 @@ static void status_update_proc(Layer *layer, GContext *ctx) {
 static void card_update_proc(Layer *layer, GContext *ctx) {
   graphics_context_set_fill_color(ctx, GColorWhite);
   graphics_fill_rect(ctx, layer_get_bounds(layer), 8, GCornersAll);
+}
+
+// ---- Card interior layout (positions countdown label vs event title) ----
+
+static void prv_apply_card_layout(void) {
+  if (!s_card_layer || !s_countdown_label_layer || !s_event_title_layer) return;
+  GRect cb = layer_get_bounds(s_card_layer);
+  int card_h = cb.size.h;
+  int card_w = cb.size.w;
+  int ci_px  = 10;
+  int ci_w   = card_w - 2 * ci_px;
+  int lbl_h  = (card_h >= 50) ? 22 : 18;
+  int margin = 10;
+  int gap    = 8;
+
+  int lbl_y, title_y, title_h;
+  if (s_settings.CountdownPosition == 0) {
+    lbl_y   = margin;
+    title_y = lbl_y + lbl_h + gap;
+    title_h = card_h - title_y - margin;
+  } else {
+    title_y = margin;
+    lbl_y   = card_h - margin - lbl_h;
+    title_h = lbl_y - title_y - gap;
+  }
+  if (title_h < 20) title_h = 20;
+
+  layer_set_frame(text_layer_get_layer(s_countdown_label_layer),
+    GRect(ci_px, lbl_y, ci_w, lbl_h));
+  layer_set_frame(text_layer_get_layer(s_event_title_layer),
+    GRect(ci_px, title_y, ci_w, title_h));
 }
 
 // ---- Dynamic layout (repositions time+date when card shown/hidden) ----
@@ -234,6 +267,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   t = dict_find(iterator, MESSAGE_KEY_TemperatureUnit);
   if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; prv_update_weather_display(); }
+
+  t = dict_find(iterator, MESSAGE_KEY_CountdownPosition);
+  if (t) { s_settings.CountdownPosition = (uint8_t)t->value->int32; settings_changed = true; prv_apply_card_layout(); }
 
   if (settings_changed) {
     prv_save_settings();
@@ -418,6 +454,7 @@ static void main_window_load(Window *window) {
 
   s_show_card = false;
   layer_set_hidden(s_card_layer, true);
+  prv_apply_card_layout();
   prv_update_time();
   prv_apply_layout(false);  // center time+date before JS responds
 }

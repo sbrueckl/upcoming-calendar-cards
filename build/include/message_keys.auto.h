@@ -8,6 +8,7 @@
 
 extern uint32_t MESSAGE_KEY_CONDITIONS;
 extern uint32_t MESSAGE_KEY_CalendarUrl;
+extern uint32_t MESSAGE_KEY_CountdownPosition;
 extern uint32_t MESSAGE_KEY_EVENT_HOUR;
 extern uint32_t MESSAGE_KEY_EVENT_MINUTE;
 extern uint32_t MESSAGE_KEY_EVENT_TITLE;

@@ -41,7 +41,8 @@
       "SecondaryColor",
       "TextColor",
       "CalendarUrl",
-      "TemperatureUnit"
+      "TemperatureUnit",
+      "CountdownPosition"
     ],
     "resources": {
       "media": []

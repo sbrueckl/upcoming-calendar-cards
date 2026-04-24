@@ -50,6 +50,25 @@ module.exports = [
     "items": [
       {
         "type": "heading",
+        "defaultValue": "Calendar Card"
+      },
+      {
+        "type": "select",
+        "messageKey": "CountdownPosition",
+        "label": "Countdown position",
+        "defaultValue": 0,
+        "options": [
+          { "label": "Top (above event name)", "value": 0 },
+          { "label": "Bottom (below event name)", "value": 1 }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
         "defaultValue": "Google Calendar"
       },
       {
