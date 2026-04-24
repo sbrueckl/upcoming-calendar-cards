@@ -35,6 +35,21 @@ module.exports = [
     "items": [
       {
         "type": "heading",
+        "defaultValue": "Weather"
+      },
+      {
+        "type": "toggle",
+        "messageKey": "TemperatureUnit",
+        "label": "Fahrenheit (off = Celsius)",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
         "defaultValue": "Google Calendar"
       },
       {

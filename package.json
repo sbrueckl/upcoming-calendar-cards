@@ -40,7 +40,8 @@
       "PrimaryColor",
       "SecondaryColor",
       "TextColor",
-      "CalendarUrl"
+      "CalendarUrl",
+      "TemperatureUnit"
     ],
     "resources": {
       "media": []

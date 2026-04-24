@@ -16,4 +16,5 @@ uint32_t MESSAGE_KEY_PrimaryColor = 10007;
 uint32_t MESSAGE_KEY_REQUEST_UPDATE = 10000;
 uint32_t MESSAGE_KEY_SecondaryColor = 10008;
 uint32_t MESSAGE_KEY_TEMPERATURE = 10005;
+uint32_t MESSAGE_KEY_TemperatureUnit = 10011;
 uint32_t MESSAGE_KEY_TextColor = 10009;
