@@ -1,0 +1,10 @@
+# Pebble build artifacts
+build/
+.lock-waf_darwin_build
+.wafpickle-*
+
+# Node / Clay dependencies
+#node_modules/
+
+# Claude temp files
+.claude/
