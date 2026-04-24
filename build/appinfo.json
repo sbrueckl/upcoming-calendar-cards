@@ -15,8 +15,8 @@
         "watchface": true
     },
     "capabilities": [
-        "configurable",
-        "location"
+        "location",
+        "configurable"
     ],
     "messageKeys": {
         "REQUEST_UPDATE": 10000,
@@ -30,7 +30,8 @@
         "SecondaryColor": 10008,
         "TextColor": 10009,
         "CalendarUrl": 10010,
-        "TemperatureUnit": 10011
+        "TemperatureUnit": 10011,
+        "CountdownPosition": 10012
     },
     "resources": {
         "media": []
@@ -52,6 +53,7 @@
         "SecondaryColor": 10008,
         "TextColor": 10009,
         "CalendarUrl": 10010,
-        "TemperatureUnit": 10011
+        "TemperatureUnit": 10011,
+        "CountdownPosition": 10012
     }
 }

@@ -1,6 +1,7 @@
 {
     "CONDITIONS": 10006,
     "CalendarUrl": 10010,
+    "CountdownPosition": 10012,
     "EVENT_HOUR": 10003,
     "EVENT_MINUTE": 10004,
     "EVENT_TITLE": 10002,
