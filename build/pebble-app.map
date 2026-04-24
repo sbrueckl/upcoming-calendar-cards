@@ -1416,7 +1416,7 @@ LOAD /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/ar
  .note.gnu.build-id
                 0x00000084       0x24 linker stubs
 
-.text           0x000000a8     0x12a6
+.text           0x000000a8     0x142f
  *(.text)
  .text          0x000000a8       0x14 /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
  *(.text.*)
@@ -1432,398 +1432,416 @@ LOAD /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/ar
  .text.battery_handler
                 0x00000124       0x24 src/c/main.c.49.o
  .text.prv_update_weather_display
-                0x00000148       0x80 src/c/main.c.49.o
+                0x00000148       0x9c src/c/main.c.49.o
  .text.prv_apply_card_layout
-                0x000001c8       0xdc src/c/main.c.49.o
- .text.prv_apply_layout
-                0x000002a4       0xdc src/c/main.c.49.o
+                0x000001e4       0xdc src/c/main.c.49.o
  .text.prv_update_time
-                0x00000380       0x88 src/c/main.c.49.o
+                0x000002c0       0xb4 src/c/main.c.49.o
+ .text.prv_apply_layout
+                0x00000374       0xec src/c/main.c.49.o
  .text.main_window_unload
-                0x00000408       0x88 src/c/main.c.49.o
+                0x00000460       0x88 src/c/main.c.49.o
  .text.main_window_load
-                0x00000490      0x478 src/c/main.c.49.o
+                0x000004e8      0x488 src/c/main.c.49.o
  .text.card_update_proc
-                0x00000908       0x30 src/c/main.c.49.o
+                0x00000970       0x30 src/c/main.c.49.o
  .text.status_update_proc
-                0x00000938       0xb8 src/c/main.c.49.o
+                0x000009a0       0xc8 src/c/main.c.49.o
  .text.prv_request_update
-                0x000009f0       0x2c src/c/main.c.49.o
+                0x00000a68       0x2c src/c/main.c.49.o
  .text.prv_update_event_display
-                0x00000a1c       0xcc src/c/main.c.49.o
+                0x00000a94       0xd4 src/c/main.c.49.o
  .text.inbox_received_callback
-                0x00000ae8      0x278 src/c/main.c.49.o
+                0x00000b68      0x348 src/c/main.c.49.o
  .text.bg_update_proc
-                0x00000d60       0x54 src/c/main.c.49.o
+                0x00000eb0       0x54 src/c/main.c.49.o
  .text.tick_handler
-                0x00000db4       0x68 src/c/main.c.49.o
+                0x00000f04       0x68 src/c/main.c.49.o
  .text.startup.main
-                0x00000e1c      0x15c src/c/main.c.49.o
-                0x00000e1c                main
+                0x00000f6c      0x170 src/c/main.c.49.o
+                0x00000f6c                main
  .text.app_event_loop
-                0x00000f78        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000f78                app_event_loop
- .text.app_log  0x00000f84        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000f84                app_log
+                0x000010dc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000010dc                app_event_loop
+ .text.app_log  0x000010e8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000010e8                app_log
  .text.app_message_open
-                0x00000f90        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000f90                app_message_open
+                0x000010f4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000010f4                app_message_open
  .text.battery_state_service_peek
-                0x00000f9c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000f9c                battery_state_service_peek
+                0x00001100        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001100                battery_state_service_peek
  .text.battery_state_service_subscribe
-                0x00000fa8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000fa8                battery_state_service_subscribe
+                0x0000110c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000110c                battery_state_service_subscribe
  .text.battery_state_service_unsubscribe
-                0x00000fb4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000fb4                battery_state_service_unsubscribe
+                0x00001118        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001118                battery_state_service_unsubscribe
  .text.clock_is_24h_style
-                0x00000fc0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000fc0                clock_is_24h_style
+                0x00001124        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001124                clock_is_24h_style
  .text.dict_find
-                0x00000fcc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000fcc                dict_find
+                0x00001130        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001130                dict_find
  .text.dict_write_uint8
-                0x00000fd8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000fd8                dict_write_uint8
+                0x0000113c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000113c                dict_write_uint8
  .text.fonts_get_system_font
-                0x00000fe4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000fe4                fonts_get_system_font
+                0x00001148        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001148                fonts_get_system_font
  .text.gpath_create
-                0x00000ff0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000ff0                gpath_create
+                0x00001154        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001154                gpath_create
  .text.gpath_destroy
-                0x00000ffc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00000ffc                gpath_destroy
+                0x00001160        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001160                gpath_destroy
  .text.graphics_draw_rect
-                0x00001008        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001008                graphics_draw_rect
+                0x0000116c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000116c                graphics_draw_rect
  .text.graphics_fill_circle
-                0x00001014        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001014                graphics_fill_circle
+                0x00001178        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001178                graphics_fill_circle
  .text.graphics_fill_rect
-                0x00001020        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001020                graphics_fill_rect
+                0x00001184        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001184                graphics_fill_rect
  .text.layer_add_child
-                0x0000102c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000102c                layer_add_child
+                0x00001190        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001190                layer_add_child
  .text.layer_create
-                0x00001038        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001038                layer_create
+                0x0000119c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000119c                layer_create
  .text.layer_destroy
-                0x00001044        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001044                layer_destroy
+                0x000011a8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011a8                layer_destroy
  .text.layer_get_bounds
-                0x00001050        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001050                layer_get_bounds
+                0x000011b4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011b4                layer_get_bounds
  .text.layer_mark_dirty
-                0x0000105c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000105c                layer_mark_dirty
+                0x000011c0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011c0                layer_mark_dirty
  .text.layer_set_frame
-                0x00001068        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001068                layer_set_frame
+                0x000011cc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011cc                layer_set_frame
  .text.layer_set_hidden
-                0x00001074        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001074                layer_set_hidden
+                0x000011d8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011d8                layer_set_hidden
  .text.layer_set_update_proc
-                0x00001080        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001080                layer_set_update_proc
+                0x000011e4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011e4                layer_set_update_proc
  .text.snprintf
-                0x0000108c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000108c                snprintf
+                0x000011f0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011f0                snprintf
  .text.strftime
-                0x00001098        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001098                strftime
+                0x000011fc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000011fc                strftime
  .text.tick_timer_service_subscribe
-                0x000010a4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010a4                tick_timer_service_subscribe
+                0x00001208        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001208                tick_timer_service_subscribe
  .text.tick_timer_service_unsubscribe
-                0x000010b0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010b0                tick_timer_service_unsubscribe
+                0x00001214        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001214                tick_timer_service_unsubscribe
  .text.window_create
-                0x000010bc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010bc                window_create
+                0x00001220        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001220                window_create
  .text.window_destroy
-                0x000010c8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010c8                window_destroy
+                0x0000122c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000122c                window_destroy
  .text.window_get_root_layer
-                0x000010d4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010d4                window_get_root_layer
+                0x00001238        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001238                window_get_root_layer
  .text.window_set_window_handlers
-                0x000010e0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010e0                window_set_window_handlers
+                0x00001244        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001244                window_set_window_handlers
  .text.window_stack_push
-                0x000010ec        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010ec                window_stack_push
+                0x00001250        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001250                window_stack_push
  .text.app_message_outbox_begin
-                0x000010f8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000010f8                app_message_outbox_begin
+                0x0000125c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000125c                app_message_outbox_begin
  .text.app_message_outbox_send
-                0x00001104        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001104                app_message_outbox_send
+                0x00001268        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001268                app_message_outbox_send
  .text.app_message_register_inbox_dropped
-                0x00001110        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001110                app_message_register_inbox_dropped
+                0x00001274        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001274                app_message_register_inbox_dropped
  .text.app_message_register_inbox_received
-                0x0000111c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000111c                app_message_register_inbox_received
+                0x00001280        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001280                app_message_register_inbox_received
  .text.app_message_register_outbox_failed
-                0x00001128        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001128                app_message_register_outbox_failed
+                0x0000128c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000128c                app_message_register_outbox_failed
  .text.app_message_register_outbox_sent
-                0x00001134        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001134                app_message_register_outbox_sent
+                0x00001298        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001298                app_message_register_outbox_sent
  .text.persist_read_data
-                0x00001140        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001140                persist_read_data
+                0x000012a4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012a4                persist_read_data
  .text.persist_write_data
-                0x0000114c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000114c                persist_write_data
+                0x000012b0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012b0                persist_write_data
  .text.gpath_draw_filled
-                0x00001158        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001158                gpath_draw_filled
+                0x000012bc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012bc                gpath_draw_filled
  .text.graphics_context_set_fill_color
-                0x00001164        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001164                graphics_context_set_fill_color
+                0x000012c8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012c8                graphics_context_set_fill_color
  .text.graphics_context_set_stroke_color
-                0x00001170        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001170                graphics_context_set_stroke_color
+                0x000012d4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012d4                graphics_context_set_stroke_color
  .text.window_set_background_color
-                0x0000117c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000117c                window_set_background_color
+                0x000012e0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012e0                window_set_background_color
  .text.localtime
-                0x00001188        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001188                localtime
+                0x000012ec        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012ec                localtime
  .text.text_layer_create
-                0x00001194        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001194                text_layer_create
+                0x000012f8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x000012f8                text_layer_create
  .text.text_layer_destroy
-                0x000011a0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011a0                text_layer_destroy
+                0x00001304        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001304                text_layer_destroy
  .text.text_layer_get_layer
-                0x000011ac        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011ac                text_layer_get_layer
+                0x00001310        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001310                text_layer_get_layer
  .text.text_layer_set_background_color
-                0x000011b8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011b8                text_layer_set_background_color
+                0x0000131c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000131c                text_layer_set_background_color
  .text.text_layer_set_font
-                0x000011c4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011c4                text_layer_set_font
+                0x00001328        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001328                text_layer_set_font
  .text.text_layer_set_overflow_mode
-                0x000011d0        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011d0                text_layer_set_overflow_mode
+                0x00001334        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001334                text_layer_set_overflow_mode
  .text.text_layer_set_text
-                0x000011dc        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011dc                text_layer_set_text
+                0x00001340        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001340                text_layer_set_text
  .text.text_layer_set_text_alignment
-                0x000011e8        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011e8                text_layer_set_text_alignment
+                0x0000134c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000134c                text_layer_set_text_alignment
  .text.text_layer_set_text_color
-                0x000011f4        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x000011f4                text_layer_set_text_color
- .text.time     0x00001200        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001200                time
+                0x00001358        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001358                text_layer_set_text_color
+ .text.time     0x00001364        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001364                time
  .text.connection_service_peek_pebble_app_connection
-                0x0000120c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x0000120c                connection_service_peek_pebble_app_connection
+                0x00001370        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001370                connection_service_peek_pebble_app_connection
  .text.connection_service_subscribe
-                0x00001218        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001218                connection_service_subscribe
+                0x0000137c        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x0000137c                connection_service_subscribe
  .text.connection_service_unsubscribe
-                0x00001224        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
-                0x00001224                connection_service_unsubscribe
+                0x00001388        0xc /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+                0x00001388                connection_service_unsubscribe
  *(.rodata)
  *(.rodata*)
  .rodata.outbox_failed_callback.str1.1
-                0x00001230      0x11e src/c/main.c.49.o
+                0x00001394      0x143 src/c/main.c.49.o
                                  0x19 (size before relaxing)
  .rodata.inbox_dropped_callback.str1.1
-                0x0000134e       0x12 src/c/main.c.49.o
+                0x000014d7       0x12 src/c/main.c.49.o
  .rodata.prv_update_weather_display.str1.1
-                0x0000134e       0x10 src/c/main.c.49.o
+                0x000014d7       0x10 src/c/main.c.49.o
  .rodata.prv_update_time.str1.1
-                0x0000134e       0x15 src/c/main.c.49.o
+                0x000014d7        0xc src/c/main.c.49.o
  .rodata.main_window_load.str1.1
-                0x0000134e       0xa5 src/c/main.c.49.o
+                0x000014d7       0xa5 src/c/main.c.49.o
  .rodata.prv_update_event_display.str1.1
-                0x0000134e       0x29 src/c/main.c.49.o
+                0x000014d7       0x29 src/c/main.c.49.o
  .rodata.inbox_received_callback.str1.1
-                0x0000134e        0x3 src/c/main.c.49.o
+                0x000014d7        0x3 src/c/main.c.49.o
+ .rodata.str1.1
+                0x000014d7       0x34 src/c/main.c.49.o
 
-.glue_7         0x00001350        0x0
- .glue_7        0x00001350        0x0 linker stubs
+.glue_7         0x000014d8        0x0
+ .glue_7        0x000014d8        0x0 linker stubs
 
-.glue_7t        0x00001350        0x0
- .glue_7t       0x00001350        0x0 linker stubs
+.glue_7t        0x000014d8        0x0
+ .glue_7t       0x000014d8        0x0 linker stubs
 
-.vfp11_veneer   0x00001350        0x0
- .vfp11_veneer  0x00001350        0x0 linker stubs
+.vfp11_veneer   0x000014d8        0x0
+ .vfp11_veneer  0x000014d8        0x0 linker stubs
 
-.v4_bx          0x00001350        0x0
- .v4_bx         0x00001350        0x0 linker stubs
+.v4_bx          0x000014d8        0x0
+ .v4_bx         0x000014d8        0x0 linker stubs
 
-.init           0x00001350        0x4
- .init          0x00001350        0x4 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crti.o
-                0x00001350                _init
+.init           0x000014d8        0x4
+ .init          0x000014d8        0x4 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crti.o
+                0x000014d8                _init
 
-.fini           0x00001354        0x4
- .fini          0x00001354        0x4 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crti.o
-                0x00001354                _fini
+.fini           0x000014dc        0x4
+ .fini          0x000014dc        0x4 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crti.o
+                0x000014dc                _fini
 
-.iplt           0x00001358        0x0
- .iplt          0x00001358        0x0 src/c/main.c.49.o
+.iplt           0x000014e0        0x0
+ .iplt          0x000014e0        0x0 src/c/main.c.49.o
 
-.rel.dyn        0x00001358        0x0
- .rel.iplt      0x00001358        0x0 src/c/main.c.49.o
- .rel.got       0x00001358        0x0 src/c/main.c.49.o
+.rel.dyn        0x000014e0        0x0
+ .rel.iplt      0x000014e0        0x0 src/c/main.c.49.o
+ .rel.got       0x000014e0        0x0 src/c/main.c.49.o
 
-.data           0x00001358       0x38
+.data           0x000014e0       0x60
  *(.data)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crti.o
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtbegin.o
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
- .data          0x00001358        0x0 src/c/main.c.49.o
- .data          0x00001358        0x0 basalt/appinfo.auto.c.49.o
- .data          0x00001358        0x0 basalt/src/resource_ids.auto.c.49.o
- .data          0x00001358        0x0 src/message_keys.auto.c.49.o
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-atexit.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-exit.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-findfp.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-impure.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-init.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fini.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-lock.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-__atexit.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-__call_atexit.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-mallocr.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-mlock.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fwalk.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fclose.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fflush.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-stdio.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-closer.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-reent.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-lseekr.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-readr.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-sbrkr.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-writer.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-sysconf.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-freer.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-errno.o)
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtend.o
- .data          0x00001358        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtn.o
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crti.o
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtbegin.o
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
+ .data          0x000014e0        0x0 src/c/main.c.49.o
+ .data          0x000014e0        0x0 basalt/appinfo.auto.c.49.o
+ .data          0x000014e0        0x0 basalt/src/resource_ids.auto.c.49.o
+ .data          0x000014e0        0x0 src/message_keys.auto.c.49.o
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/basalt/lib/libpebble.a(tmpFRPTsFpebble.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-atexit.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-exit.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-findfp.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-impure.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-init.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fini.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-lock.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-__atexit.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-__call_atexit.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-mallocr.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-mlock.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fwalk.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fclose.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-fflush.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-stdio.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-closer.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-reent.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-lseekr.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-readr.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-sbrkr.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-writer.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-sysconf.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-freer.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-errno.o)
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtend.o
+ .data          0x000014e0        0x0 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtn.o
  *(.data.*)
+ .data.rel.ro.local.DATE_FORMATS
+                0x000014e0       0x18 src/c/main.c.49.o
  .data.s_diag_info
-                0x00001358        0x8 src/c/main.c.49.o
+                0x000014f8        0x8 src/c/main.c.49.o
  .data.MESSAGE_KEY_TextColor
-                0x00001360        0x4 src/message_keys.auto.c.49.o
-                0x00001360                MESSAGE_KEY_TextColor
+                0x00001500        0x4 src/message_keys.auto.c.49.o
+                0x00001500                MESSAGE_KEY_TextColor
  .data.MESSAGE_KEY_TemperatureUnit
-                0x00001364        0x4 src/message_keys.auto.c.49.o
-                0x00001364                MESSAGE_KEY_TemperatureUnit
+                0x00001504        0x4 src/message_keys.auto.c.49.o
+                0x00001504                MESSAGE_KEY_TemperatureUnit
  .data.MESSAGE_KEY_TEMPERATURE
-                0x00001368        0x4 src/message_keys.auto.c.49.o
-                0x00001368                MESSAGE_KEY_TEMPERATURE
+                0x00001508        0x4 src/message_keys.auto.c.49.o
+                0x00001508                MESSAGE_KEY_TEMPERATURE
+ .data.MESSAGE_KEY_ShowWeather
+                0x0000150c        0x4 src/message_keys.auto.c.49.o
+                0x0000150c                MESSAGE_KEY_ShowWeather
+ .data.MESSAGE_KEY_ShowBluetooth
+                0x00001510        0x4 src/message_keys.auto.c.49.o
+                0x00001510                MESSAGE_KEY_ShowBluetooth
+ .data.MESSAGE_KEY_ShowBattery
+                0x00001514        0x4 src/message_keys.auto.c.49.o
+                0x00001514                MESSAGE_KEY_ShowBattery
  .data.MESSAGE_KEY_SecondaryColor
-                0x0000136c        0x4 src/message_keys.auto.c.49.o
-                0x0000136c                MESSAGE_KEY_SecondaryColor
+                0x00001518        0x4 src/message_keys.auto.c.49.o
+                0x00001518                MESSAGE_KEY_SecondaryColor
  .data.MESSAGE_KEY_REQUEST_UPDATE
-                0x00001370        0x4 src/message_keys.auto.c.49.o
-                0x00001370                MESSAGE_KEY_REQUEST_UPDATE
+                0x0000151c        0x4 src/message_keys.auto.c.49.o
+                0x0000151c                MESSAGE_KEY_REQUEST_UPDATE
  .data.MESSAGE_KEY_PrimaryColor
-                0x00001374        0x4 src/message_keys.auto.c.49.o
-                0x00001374                MESSAGE_KEY_PrimaryColor
+                0x00001520        0x4 src/message_keys.auto.c.49.o
+                0x00001520                MESSAGE_KEY_PrimaryColor
  .data.MESSAGE_KEY_HAS_EVENT
-                0x00001378        0x4 src/message_keys.auto.c.49.o
-                0x00001378                MESSAGE_KEY_HAS_EVENT
+                0x00001524        0x4 src/message_keys.auto.c.49.o
+                0x00001524                MESSAGE_KEY_HAS_EVENT
  .data.MESSAGE_KEY_EVENT_TITLE
-                0x0000137c        0x4 src/message_keys.auto.c.49.o
-                0x0000137c                MESSAGE_KEY_EVENT_TITLE
+                0x00001528        0x4 src/message_keys.auto.c.49.o
+                0x00001528                MESSAGE_KEY_EVENT_TITLE
  .data.MESSAGE_KEY_EVENT_MINUTE
-                0x00001380        0x4 src/message_keys.auto.c.49.o
-                0x00001380                MESSAGE_KEY_EVENT_MINUTE
+                0x0000152c        0x4 src/message_keys.auto.c.49.o
+                0x0000152c                MESSAGE_KEY_EVENT_MINUTE
  .data.MESSAGE_KEY_EVENT_HOUR
-                0x00001384        0x4 src/message_keys.auto.c.49.o
-                0x00001384                MESSAGE_KEY_EVENT_HOUR
+                0x00001530        0x4 src/message_keys.auto.c.49.o
+                0x00001530                MESSAGE_KEY_EVENT_HOUR
+ .data.MESSAGE_KEY_DateFormat
+                0x00001534        0x4 src/message_keys.auto.c.49.o
+                0x00001534                MESSAGE_KEY_DateFormat
  .data.MESSAGE_KEY_CountdownPosition
-                0x00001388        0x4 src/message_keys.auto.c.49.o
-                0x00001388                MESSAGE_KEY_CountdownPosition
+                0x00001538        0x4 src/message_keys.auto.c.49.o
+                0x00001538                MESSAGE_KEY_CountdownPosition
  .data.MESSAGE_KEY_CONDITIONS
-                0x0000138c        0x4 src/message_keys.auto.c.49.o
-                0x0000138c                MESSAGE_KEY_CONDITIONS
+                0x0000153c        0x4 src/message_keys.auto.c.49.o
+                0x0000153c                MESSAGE_KEY_CONDITIONS
 
-.igot.plt       0x00001390        0x0
- .igot.plt      0x00001390        0x0 src/c/main.c.49.o
+.igot.plt       0x00001540        0x0
+ .igot.plt      0x00001540        0x0 src/c/main.c.49.o
 
-.got            0x00001390       0x30
- .got           0x00001390       0x30 src/c/main.c.49.o
+.got            0x00001540       0x40
+ .got           0x00001540       0x40 src/c/main.c.49.o
 
-.got.plt        0x000013c0        0xc
- .got.plt       0x000013c0        0xc src/c/main.c.49.o
-                0x000013c0                _GLOBAL_OFFSET_TABLE_
+.got.plt        0x00001580        0xc
+ .got.plt       0x00001580        0xc src/c/main.c.49.o
+                0x00001580                _GLOBAL_OFFSET_TABLE_
 
-.bss            0x000013cc       0xdd
+.bss            0x0000158c       0xe1
  *(.bss)
  *(.bss.*)
  .bss.s_diag_path
-                0x000013cc        0x4 src/c/main.c.49.o
+                0x0000158c        0x4 src/c/main.c.49.o
  .bss.s_diag_pts
-                0x000013d0        0xc src/c/main.c.49.o
+                0x00001590        0xc src/c/main.c.49.o
  .bss.s_status_h
-                0x000013dc        0x4 src/c/main.c.49.o
+                0x0000159c        0x4 src/c/main.c.49.o
  .bss.s_date_px
-                0x000013e0        0x4 src/c/main.c.49.o
- .bss.s_date_h  0x000013e4        0x4 src/c/main.c.49.o
- .bss.s_time_h  0x000013e8        0x4 src/c/main.c.49.o
+                0x000015a0        0x4 src/c/main.c.49.o
+ .bss.s_date_h  0x000015a4        0x4 src/c/main.c.49.o
+ .bss.s_time_h  0x000015a8        0x4 src/c/main.c.49.o
  .bss.s_bt_connected
-                0x000013ec        0x1 src/c/main.c.49.o
+                0x000015ac        0x1 src/c/main.c.49.o
  .bss.s_battery_pct
-                0x000013ed        0x1 src/c/main.c.49.o
+                0x000015ad        0x1 src/c/main.c.49.o
  .bss.s_has_weather
-                0x000013ee        0x1 src/c/main.c.49.o
+                0x000015ae        0x1 src/c/main.c.49.o
  .bss.s_conditions
-                0x000013ef       0x10 src/c/main.c.49.o
- *fill*         0x000013ff        0x1 
+                0x000015af       0x10 src/c/main.c.49.o
+ *fill*         0x000015bf        0x1 
  .bss.s_temperature
-                0x00001400        0x4 src/c/main.c.49.o
+                0x000015c0        0x4 src/c/main.c.49.o
  .bss.s_weather_buf
-                0x00001404       0x18 src/c/main.c.49.o
+                0x000015c4       0x18 src/c/main.c.49.o
  .bss.s_countdown_label_buf
-                0x0000141c       0x18 src/c/main.c.49.o
+                0x000015dc       0x18 src/c/main.c.49.o
  .bss.s_date_buf
-                0x00001434       0x14 src/c/main.c.49.o
+                0x000015f4       0x14 src/c/main.c.49.o
  .bss.s_time_buf
-                0x00001448        0x8 src/c/main.c.49.o
+                0x00001608        0x8 src/c/main.c.49.o
+ .bss.s_show_card
+                0x00001610        0x1 src/c/main.c.49.o
  .bss.s_has_event
-                0x00001450        0x1 src/c/main.c.49.o
- *fill*         0x00001451        0x3 
+                0x00001611        0x1 src/c/main.c.49.o
+ *fill*         0x00001612        0x2 
  .bss.s_event_minute
-                0x00001454        0x4 src/c/main.c.49.o
+                0x00001614        0x4 src/c/main.c.49.o
  .bss.s_event_hour
-                0x00001458        0x4 src/c/main.c.49.o
+                0x00001618        0x4 src/c/main.c.49.o
  .bss.s_event_title
-                0x0000145c       0x21 src/c/main.c.49.o
- *fill*         0x0000147d        0x3 
+                0x0000161c       0x21 src/c/main.c.49.o
+ *fill*         0x0000163d        0x3 
  .bss.s_weather_layer
-                0x00001480        0x4 src/c/main.c.49.o
+                0x00001640        0x4 src/c/main.c.49.o
  .bss.s_event_title_layer
-                0x00001484        0x4 src/c/main.c.49.o
+                0x00001644        0x4 src/c/main.c.49.o
  .bss.s_countdown_label_layer
-                0x00001488        0x4 src/c/main.c.49.o
+                0x00001648        0x4 src/c/main.c.49.o
  .bss.s_date_layer
-                0x0000148c        0x4 src/c/main.c.49.o
+                0x0000164c        0x4 src/c/main.c.49.o
  .bss.s_time_layer
-                0x00001490        0x4 src/c/main.c.49.o
+                0x00001650        0x4 src/c/main.c.49.o
  .bss.s_card_layer
-                0x00001494        0x4 src/c/main.c.49.o
+                0x00001654        0x4 src/c/main.c.49.o
  .bss.s_status_layer
-                0x00001498        0x4 src/c/main.c.49.o
+                0x00001658        0x4 src/c/main.c.49.o
  .bss.s_bg_layer
-                0x0000149c        0x4 src/c/main.c.49.o
- .bss.s_window  0x000014a0        0x4 src/c/main.c.49.o
+                0x0000165c        0x4 src/c/main.c.49.o
+ .bss.s_window  0x00001660        0x4 src/c/main.c.49.o
  .bss.s_settings
-                0x000014a4        0x5 src/c/main.c.49.o
+                0x00001664        0x9 src/c/main.c.49.o
 
 DISCARD
  libc.a(*)
@@ -1940,22 +1958,22 @@ LOAD /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/ar
  .comment       0x00000038       0x39 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(libc_a-errno.o)
  .comment       0x00000038       0x39 /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/14.2.1/thumb/v7-m/nofp/crtend.o
 
-.debug_info     0x00000000     0x2871
- .debug_info    0x00000000     0x2381 src/c/main.c.49.o
- .debug_info    0x00002381      0x33e basalt/appinfo.auto.c.49.o
- .debug_info    0x000026bf       0x65 basalt/src/resource_ids.auto.c.49.o
- .debug_info    0x00002724      0x14d src/message_keys.auto.c.49.o
+.debug_info     0x00000000     0x2a3a
+ .debug_info    0x00000000     0x250a src/c/main.c.49.o
+ .debug_info    0x0000250a      0x33e basalt/appinfo.auto.c.49.o
+ .debug_info    0x00002848       0x65 basalt/src/resource_ids.auto.c.49.o
+ .debug_info    0x000028ad      0x18d src/message_keys.auto.c.49.o
 
-.debug_abbrev   0x00000000      0x659
- .debug_abbrev  0x00000000      0x530 src/c/main.c.49.o
- .debug_abbrev  0x00000530       0xb9 basalt/appinfo.auto.c.49.o
- .debug_abbrev  0x000005e9       0x26 basalt/src/resource_ids.auto.c.49.o
- .debug_abbrev  0x0000060f       0x4a src/message_keys.auto.c.49.o
+.debug_abbrev   0x00000000      0x663
+ .debug_abbrev  0x00000000      0x53a src/c/main.c.49.o
+ .debug_abbrev  0x0000053a       0xb9 basalt/appinfo.auto.c.49.o
+ .debug_abbrev  0x000005f3       0x26 basalt/src/resource_ids.auto.c.49.o
+ .debug_abbrev  0x00000619       0x4a src/message_keys.auto.c.49.o
 
 .debug_loclists
-                0x00000000      0xbf9
+                0x00000000      0xc7d
  .debug_loclists
-                0x00000000      0xbf9 src/c/main.c.49.o
+                0x00000000      0xc7d src/c/main.c.49.o
 
 .debug_aranges  0x00000000       0xf8
  .debug_aranges
@@ -1968,22 +1986,22 @@ LOAD /Users/sas/Library/Application Support/Pebble SDK/SDKs/4.9.148/toolchain/ar
                 0x000000e0       0x18 src/message_keys.auto.c.49.o
 
 .debug_rnglists
-                0x00000000       0xfc
+                0x00000000       0xf6
  .debug_rnglists
-                0x00000000       0xfc src/c/main.c.49.o
+                0x00000000       0xf6 src/c/main.c.49.o
 
-.debug_line     0x00000000     0x1329
- .debug_line    0x00000000      0xff6 src/c/main.c.49.o
- .debug_line    0x00000ff6      0x1b5 basalt/appinfo.auto.c.49.o
- .debug_line    0x000011ab       0x3f basalt/src/resource_ids.auto.c.49.o
- .debug_line    0x000011ea      0x13f src/message_keys.auto.c.49.o
+.debug_line     0x00000000     0x1516
+ .debug_line    0x00000000     0x11e3 src/c/main.c.49.o
+ .debug_line    0x000011e3      0x1b5 basalt/appinfo.auto.c.49.o
+ .debug_line    0x00001398       0x3f basalt/src/resource_ids.auto.c.49.o
+ .debug_line    0x000013d7      0x13f src/message_keys.auto.c.49.o
 
-.debug_str      0x00000000     0x1614
- .debug_str     0x00000000     0x1614 src/c/main.c.49.o
-                               0x13c9 (size before relaxing)
- .debug_str     0x00001614      0x4d8 basalt/appinfo.auto.c.49.o
- .debug_str     0x00001614      0x16c basalt/src/resource_ids.auto.c.49.o
- .debug_str     0x00001614      0x2bd src/message_keys.auto.c.49.o
+.debug_str      0x00000000     0x168f
+ .debug_str     0x00000000     0x168f src/c/main.c.49.o
+                               0x1475 (size before relaxing)
+ .debug_str     0x0000168f      0x4d8 basalt/appinfo.auto.c.49.o
+ .debug_str     0x0000168f      0x16c basalt/src/resource_ids.auto.c.49.o
+ .debug_str     0x0000168f      0x31e src/message_keys.auto.c.49.o
 
-.debug_frame    0x00000000      0x2a8
- .debug_frame   0x00000000      0x2a8 src/c/main.c.49.o
+.debug_frame    0x00000000      0x2b8
+ .debug_frame   0x00000000      0x2b8 src/c/main.c.49.o

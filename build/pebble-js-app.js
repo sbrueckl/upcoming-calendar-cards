@@ -556,7 +556,7 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"CONDITIONS":10006,"CalendarUrl":10010,"CountdownPosition":10012,"EVENT_HOUR":10003,"EVENT_MINUTE":10004,"EVENT_TITLE":10002,"HAS_EVENT":10001,"PrimaryColor":10007,"REQUEST_UPDATE":10000,"SecondaryColor":10008,"TEMPERATURE":10005,"TemperatureUnit":10011,"TextColor":10009}
+	module.exports = {"CONDITIONS":10006,"CalendarUrl":10010,"CountdownPosition":10012,"DateFormat":10016,"EVENT_HOUR":10003,"EVENT_MINUTE":10004,"EVENT_TITLE":10002,"HAS_EVENT":10001,"PrimaryColor":10007,"REQUEST_UPDATE":10000,"SecondaryColor":10008,"ShowBattery":10014,"ShowBluetooth":10015,"ShowWeather":10013,"TEMPERATURE":10005,"TemperatureUnit":10011,"TextColor":10009}
 
 /***/ }),
 /* 6 */
@@ -603,9 +603,60 @@
 	      },
 	      {
 	        "type": "toggle",
+	        "messageKey": "ShowWeather",
+	        "label": "Show weather",
+	        "defaultValue": true
+	      },
+	      {
+	        "type": "toggle",
 	        "messageKey": "TemperatureUnit",
 	        "label": "Fahrenheit (off = Celsius)",
 	        "defaultValue": false
+	      }
+	    ]
+	  },
+	  {
+	    "type": "section",
+	    "items": [
+	      {
+	        "type": "heading",
+	        "defaultValue": "Status Bar"
+	      },
+	      {
+	        "type": "toggle",
+	        "messageKey": "ShowBattery",
+	        "label": "Show battery indicator",
+	        "defaultValue": true
+	      },
+	      {
+	        "type": "toggle",
+	        "messageKey": "ShowBluetooth",
+	        "label": "Show Bluetooth indicator",
+	        "defaultValue": true
+	      }
+	    ]
+	  },
+	  {
+	    "type": "section",
+	    "items": [
+	      {
+	        "type": "heading",
+	        "defaultValue": "Date"
+	      },
+	      {
+	        "type": "select",
+	        "messageKey": "DateFormat",
+	        "label": "Date format",
+	        "defaultValue": 0,
+	        "options": [
+	          { "label": "Thu 24 Apr (default)", "value": 0 },
+	          { "label": "Thursday, 24 April",   "value": 1 },
+	          { "label": "24.04.2026",           "value": 2 },
+	          { "label": "04/24/2026",           "value": 3 },
+	          { "label": "2026-04-24",           "value": 4 },
+	          { "label": "24 Apr",               "value": 5 },
+	          { "label": "None (hidden)",        "value": 6 }
+	        ]
 	      }
 	    ]
 	  },

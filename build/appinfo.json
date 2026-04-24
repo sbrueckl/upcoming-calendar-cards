@@ -15,8 +15,8 @@
         "watchface": true
     },
     "capabilities": [
-        "location",
-        "configurable"
+        "configurable",
+        "location"
     ],
     "messageKeys": {
         "REQUEST_UPDATE": 10000,
@@ -31,7 +31,11 @@
         "TextColor": 10009,
         "CalendarUrl": 10010,
         "TemperatureUnit": 10011,
-        "CountdownPosition": 10012
+        "CountdownPosition": 10012,
+        "ShowWeather": 10013,
+        "ShowBattery": 10014,
+        "ShowBluetooth": 10015,
+        "DateFormat": 10016
     },
     "resources": {
         "media": []
@@ -39,7 +43,7 @@
     "name": "upcoming-calendar-cards",
     "shortName": "Upcoming Calendar Cards",
     "longName": "Upcoming Calendar Cards",
-    "versionLabel": "1.0",
+    "versionLabel": "1.1",
     "companyName": "Claude",
     "appKeys": {
         "REQUEST_UPDATE": 10000,
@@ -54,6 +58,10 @@
         "TextColor": 10009,
         "CalendarUrl": 10010,
         "TemperatureUnit": 10011,
-        "CountdownPosition": 10012
+        "CountdownPosition": 10012,
+        "ShowWeather": 10013,
+        "ShowBattery": 10014,
+        "ShowBluetooth": 10015,
+        "DateFormat": 10016
     }
 }

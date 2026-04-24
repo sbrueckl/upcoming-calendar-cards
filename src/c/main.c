@@ -8,6 +8,10 @@ typedef struct {
   GColor  TextColor;
   uint8_t TemperatureUnit;    // 0 = Celsius, 1 = Fahrenheit
   uint8_t CountdownPosition;  // 0 = top (above event name), 1 = bottom
+  uint8_t ShowWeather;        // 1 = visible (default), 0 = hidden
+  uint8_t ShowBattery;        // 1 = visible (default), 0 = hidden
+  uint8_t ShowBluetooth;      // 1 = visible (default), 0 = hidden
+  uint8_t DateFormat;         // 0-5 = format index, 6 = hidden
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -60,6 +64,10 @@ static void prv_default_settings(void) {
   s_settings.TextColor           = GColorWhite;
   s_settings.TemperatureUnit     = 0;
   s_settings.CountdownPosition   = 0;
+  s_settings.ShowWeather         = 1;
+  s_settings.ShowBattery         = 1;
+  s_settings.ShowBluetooth       = 1;
+  s_settings.DateFormat          = 0;
 }
 
 static void prv_save_settings(void) {
@@ -92,15 +100,17 @@ static void status_update_proc(Layer *layer, GContext *ctx) {
   graphics_context_set_fill_color(ctx, s_settings.TextColor);
 
   int bat_x = 4, bat_y = 4, bat_w = 20, bat_h = 9;
-  graphics_draw_rect(ctx, GRect(bat_x, bat_y, bat_w, bat_h));
-  graphics_fill_rect(ctx,
-    GRect(bat_x + bat_w, bat_y + 3, 2, bat_h - 6), 0, GCornerNone);
-  int fill_w = (bat_w - 2) * s_battery_pct / 100;
-  if (fill_w > 0) {
+  if (s_settings.ShowBattery) {
+    graphics_draw_rect(ctx, GRect(bat_x, bat_y, bat_w, bat_h));
     graphics_fill_rect(ctx,
-      GRect(bat_x + 1, bat_y + 1, fill_w, bat_h - 2), 0, GCornerNone);
+      GRect(bat_x + bat_w, bat_y + 3, 2, bat_h - 6), 0, GCornerNone);
+    int fill_w = (bat_w - 2) * s_battery_pct / 100;
+    if (fill_w > 0) {
+      graphics_fill_rect(ctx,
+        GRect(bat_x + 1, bat_y + 1, fill_w, bat_h - 2), 0, GCornerNone);
+    }
   }
-  if (s_bt_connected) {
+  if (s_settings.ShowBluetooth && s_bt_connected) {
     graphics_fill_circle(ctx, GPoint(bat_x + bat_w + 7, bat_y + bat_h / 2), 3);
   }
 }
@@ -111,6 +121,8 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
   graphics_context_set_fill_color(ctx, GColorWhite);
   graphics_fill_rect(ctx, layer_get_bounds(layer), 8, GCornersAll);
 }
+
+#define DATE_FORMAT_NONE 6  // sentinel: hide date layer
 
 // ---- Card interior layout (positions countdown label vs event title) ----
 
@@ -158,8 +170,8 @@ static void prv_apply_layout(bool show_card) {
   if (show_card) {
     time_y = s_status_h + py + 2;
   } else {
-    // Vertically center the time+date block
-    int block_h = s_time_h + s_date_h;
+    bool date_visible = (s_settings.DateFormat != DATE_FORMAT_NONE);
+    int block_h = s_time_h + (date_visible ? s_date_h : 0);
     time_y = (h - block_h) / 2;
     if (time_y < s_status_h + py + 2) time_y = s_status_h + py + 2;
   }
@@ -172,6 +184,14 @@ static void prv_apply_layout(bool show_card) {
 }
 
 // ---- Time / Date ----
+static const char * const DATE_FORMATS[] = {
+  "%a %d %b",   // 0: Thu 24 Apr
+  "%A, %d %B",  // 1: Thursday, 24 April
+  "%d.%m.%Y",   // 2: 24.04.2026
+  "%m/%d/%Y",   // 3: 04/24/2026
+  "%Y-%m-%d",   // 4: 2026-04-24
+  "%d %b",      // 5: 24 Apr
+};
 
 static void prv_update_time(void) {
   time_t t = time(NULL);
@@ -181,9 +201,15 @@ static void prv_update_time(void) {
   } else {
     strftime(s_time_buf, sizeof(s_time_buf), "%I:%M", tm);
   }
-  strftime(s_date_buf, sizeof(s_date_buf), "%a %d %b", tm);
   text_layer_set_text(s_time_layer, s_time_buf);
-  text_layer_set_text(s_date_layer, s_date_buf);
+
+  if (s_settings.DateFormat == DATE_FORMAT_NONE) {
+    layer_set_hidden(text_layer_get_layer(s_date_layer), true);
+  } else {
+    layer_set_hidden(text_layer_get_layer(s_date_layer), false);
+    strftime(s_date_buf, sizeof(s_date_buf), DATE_FORMATS[s_settings.DateFormat], tm);
+    text_layer_set_text(s_date_layer, s_date_buf);
+  }
 }
 
 // ---- Event display ----
@@ -221,6 +247,7 @@ static void prv_update_weather_display(void) {
     s_weather_buf[0] = '\0';
   }
   text_layer_set_text(s_weather_layer, s_weather_buf);
+  layer_set_hidden(text_layer_get_layer(s_weather_layer), !s_settings.ShowWeather);
 }
 
 // ---- AppMessage ----
@@ -270,6 +297,22 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   t = dict_find(iterator, MESSAGE_KEY_CountdownPosition);
   if (t) { s_settings.CountdownPosition = (uint8_t)t->value->int32; settings_changed = true; prv_apply_card_layout(); }
+
+  t = dict_find(iterator, MESSAGE_KEY_ShowWeather);
+  if (t) { s_settings.ShowWeather = (uint8_t)t->value->int32; settings_changed = true;
+           layer_set_hidden(text_layer_get_layer(s_weather_layer), !s_settings.ShowWeather); }
+
+  t = dict_find(iterator, MESSAGE_KEY_ShowBattery);
+  if (t) { s_settings.ShowBattery = (uint8_t)t->value->int32; settings_changed = true;
+           layer_mark_dirty(s_status_layer); }
+
+  t = dict_find(iterator, MESSAGE_KEY_ShowBluetooth);
+  if (t) { s_settings.ShowBluetooth = (uint8_t)t->value->int32; settings_changed = true;
+           layer_mark_dirty(s_status_layer); }
+
+  t = dict_find(iterator, MESSAGE_KEY_DateFormat);
+  if (t) { s_settings.DateFormat = (uint8_t)t->value->int32; settings_changed = true;
+           prv_update_time(); prv_apply_layout(s_show_card); }
 
   if (settings_changed) {
     prv_save_settings();
