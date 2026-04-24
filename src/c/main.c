@@ -8,6 +8,10 @@ typedef struct {
   GColor  TextColor;
   uint8_t TemperatureUnit;    // 0 = Celsius, 1 = Fahrenheit
   uint8_t CountdownPosition;  // 0 = top (above event name), 1 = bottom
+  uint8_t ShowWeather;        // 1 = visible (default), 0 = hidden
+  uint8_t ShowBattery;        // 1 = visible (default), 0 = hidden
+  uint8_t ShowBluetooth;      // 1 = visible (default), 0 = hidden
+  uint8_t DateFormat;         // 0-5 = format index, 6 = hidden
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -29,7 +33,7 @@ static bool s_has_event;
 static bool s_show_card;  // event within 24 hours
 
 static char s_time_buf[8];
-static char s_date_buf[20];
+static char s_date_buf[32];
 static char s_countdown_label_buf[24];
 static char s_weather_buf[24];
 
@@ -60,6 +64,10 @@ static void prv_default_settings(void) {
   s_settings.TextColor           = GColorWhite;
   s_settings.TemperatureUnit     = 0;
   s_settings.CountdownPosition   = 0;
+  s_settings.ShowWeather         = 1;
+  s_settings.ShowBattery         = 1;
+  s_settings.ShowBluetooth       = 1;
+  s_settings.DateFormat          = 0;
 }
 
 static void prv_save_settings(void) {
@@ -92,16 +100,22 @@ static void status_update_proc(Layer *layer, GContext *ctx) {
   graphics_context_set_fill_color(ctx, s_settings.TextColor);
 
   int bat_x = 4, bat_y = 4, bat_w = 20, bat_h = 9;
-  graphics_draw_rect(ctx, GRect(bat_x, bat_y, bat_w, bat_h));
-  graphics_fill_rect(ctx,
-    GRect(bat_x + bat_w, bat_y + 3, 2, bat_h - 6), 0, GCornerNone);
-  int fill_w = (bat_w - 2) * s_battery_pct / 100;
-  if (fill_w > 0) {
+  if (s_settings.ShowBattery) {
+    graphics_draw_rect(ctx, GRect(bat_x, bat_y, bat_w, bat_h));
     graphics_fill_rect(ctx,
-      GRect(bat_x + 1, bat_y + 1, fill_w, bat_h - 2), 0, GCornerNone);
+      GRect(bat_x + bat_w, bat_y + 3, 2, bat_h - 6), 0, GCornerNone);
+    int fill_w = (bat_w - 2) * s_battery_pct / 100;
+    if (fill_w > 0) {
+      graphics_fill_rect(ctx,
+        GRect(bat_x + 1, bat_y + 1, fill_w, bat_h - 2), 0, GCornerNone);
+    }
   }
-  if (s_bt_connected) {
-    graphics_fill_circle(ctx, GPoint(bat_x + bat_w + 7, bat_y + bat_h / 2), 3);
+  if (s_settings.ShowBluetooth && s_bt_connected) {
+    // BT dot: right of battery when both visible; left-aligned (bat_x) when battery hidden
+    int bt_cx = s_settings.ShowBattery
+      ? bat_x + bat_w + 7
+      : bat_x + 3;
+    graphics_fill_circle(ctx, GPoint(bt_cx, bat_y + bat_h / 2), 3);
   }
 }
 
@@ -111,6 +125,8 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
   graphics_context_set_fill_color(ctx, GColorWhite);
   graphics_fill_rect(ctx, layer_get_bounds(layer), 8, GCornersAll);
 }
+
+#define DATE_FORMAT_NONE 6  // sentinel: hide date layer
 
 // ---- Card interior layout (positions countdown label vs event title) ----
 
@@ -155,15 +171,21 @@ static void prv_apply_layout(bool show_card) {
 
   int time_y, date_y;
 
+  bool date_visible = (s_settings.DateFormat < DATE_FORMAT_NONE);
+  int block_h = s_time_h + (date_visible ? s_date_h : 0);
+
   if (show_card) {
-    time_y = s_status_h + py + 2;
+    // Center time(+date) block in the space between status bar and card
+    int top     = s_status_h + py + 2;
+    int card_top = layer_get_frame(s_card_layer).origin.y;
+    int offset  = (card_top - top - block_h) / 2;
+    if (offset < 0) offset = 0;
+    time_y = top + offset;
   } else {
-    // Vertically center the time+date block
-    int block_h = s_time_h + s_date_h;
     time_y = (h - block_h) / 2;
     if (time_y < s_status_h + py + 2) time_y = s_status_h + py + 2;
   }
-  date_y = time_y + s_time_h;
+  date_y = time_y + s_time_h - 8;
 
   layer_set_frame(text_layer_get_layer(s_time_layer),
     GRect(0, time_y, w, s_time_h));
@@ -172,6 +194,14 @@ static void prv_apply_layout(bool show_card) {
 }
 
 // ---- Time / Date ----
+static const char * const DATE_FORMATS[] = {
+  "%a %d %b",   // 0: Thu 24 Apr
+  "%A, %d %B",  // 1: Thursday, 24 April
+  "%d.%m.%Y",   // 2: 24.04.2026
+  "%m/%d/%Y",   // 3: 04/24/2026
+  "%Y-%m-%d",   // 4: 2026-04-24
+  "%d %b",      // 5: 24 Apr
+};
 
 static void prv_update_time(void) {
   time_t t = time(NULL);
@@ -181,9 +211,15 @@ static void prv_update_time(void) {
   } else {
     strftime(s_time_buf, sizeof(s_time_buf), "%I:%M", tm);
   }
-  strftime(s_date_buf, sizeof(s_date_buf), "%a %d %b", tm);
   text_layer_set_text(s_time_layer, s_time_buf);
-  text_layer_set_text(s_date_layer, s_date_buf);
+
+  if (s_settings.DateFormat >= DATE_FORMAT_NONE) {
+    layer_set_hidden(text_layer_get_layer(s_date_layer), true);
+  } else {
+    layer_set_hidden(text_layer_get_layer(s_date_layer), false);
+    strftime(s_date_buf, sizeof(s_date_buf), DATE_FORMATS[s_settings.DateFormat], tm);
+    text_layer_set_text(s_date_layer, s_date_buf);
+  }
 }
 
 // ---- Event display ----
@@ -221,6 +257,7 @@ static void prv_update_weather_display(void) {
     s_weather_buf[0] = '\0';
   }
   text_layer_set_text(s_weather_layer, s_weather_buf);
+  layer_set_hidden(text_layer_get_layer(s_weather_layer), !s_settings.ShowWeather);
 }
 
 // ---- AppMessage ----
@@ -236,8 +273,10 @@ static void prv_request_update(void) {
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   bool event_changed    = false;
   bool settings_changed = false;
+  bool weather_changed  = false;
   Tuple *t;
 
+  // --- Event data (from JS) ---
   t = dict_find(iterator, MESSAGE_KEY_HAS_EVENT);
   if (t) { s_has_event = (t->value->int32 == 1); event_changed = true; }
 
@@ -250,12 +289,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   t = dict_find(iterator, MESSAGE_KEY_EVENT_MINUTE);
   if (t) { s_event_minute = (int)t->value->int32; }
 
+  // --- Weather data (from JS) ---
   t = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
-  if (t) { s_temperature = t->value->int32; s_has_weather = true; prv_update_weather_display(); }
+  if (t) { s_temperature = t->value->int32; s_has_weather = true; weather_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_CONDITIONS);
-  if (t) { snprintf(s_conditions, sizeof(s_conditions), "%s", t->value->cstring); prv_update_weather_display(); }
+  if (t) { snprintf(s_conditions, sizeof(s_conditions), "%s", t->value->cstring); weather_changed = true; }
 
+  // --- Clay settings: read ALL keys first before applying anything ---
   t = dict_find(iterator, MESSAGE_KEY_PrimaryColor);
   if (t) { s_settings.PrimaryColor = GColorFromHEX(t->value->int32); settings_changed = true; }
 
@@ -266,11 +307,34 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   if (t) { s_settings.TextColor = GColorFromHEX(t->value->int32); settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_TemperatureUnit);
-  if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; prv_update_weather_display(); }
+  if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; }
 
+  // Clay select components use jQuery .val() → sends value as CSTRING, not integer.
+  // Read both types to handle the actual wire format.
   t = dict_find(iterator, MESSAGE_KEY_CountdownPosition);
-  if (t) { s_settings.CountdownPosition = (uint8_t)t->value->int32; settings_changed = true; prv_apply_card_layout(); }
+  if (t) {
+    s_settings.CountdownPosition = (t->type == TUPLE_CSTRING)
+      ? (uint8_t)atoi(t->value->cstring) : (uint8_t)t->value->int32;
+    settings_changed = true;
+  }
 
+  t = dict_find(iterator, MESSAGE_KEY_ShowWeather);
+  if (t) { s_settings.ShowWeather = (uint8_t)t->value->int32; settings_changed = true; }
+
+  t = dict_find(iterator, MESSAGE_KEY_ShowBattery);
+  if (t) { s_settings.ShowBattery = (uint8_t)t->value->int32; settings_changed = true; }
+
+  t = dict_find(iterator, MESSAGE_KEY_ShowBluetooth);
+  if (t) { s_settings.ShowBluetooth = (uint8_t)t->value->int32; settings_changed = true; }
+
+  t = dict_find(iterator, MESSAGE_KEY_DateFormat);
+  if (t) {
+    s_settings.DateFormat = (t->type == TUPLE_CSTRING)
+      ? (uint8_t)atoi(t->value->cstring) : (uint8_t)t->value->int32;
+    settings_changed = true;
+  }
+
+  // --- Apply all changes atomically ---
   if (settings_changed) {
     prv_save_settings();
     window_set_background_color(s_window, s_settings.PrimaryColor);
@@ -279,8 +343,12 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     text_layer_set_text_color(s_weather_layer, s_settings.TextColor);
     layer_mark_dirty(s_bg_layer);
     layer_mark_dirty(s_status_layer);
+    prv_apply_card_layout();
+    prv_update_time();
+    prv_apply_layout(s_show_card);
   }
 
+  if (weather_changed || settings_changed) prv_update_weather_display();
   if (event_changed) prv_update_event_display();
 }
 
@@ -345,12 +413,9 @@ static void main_window_load(Window *window) {
   int px_c = is_round ? w * 6 / 100 : 6;   // card horizontal margin
 
   s_status_h = 16;
-  s_time_h   = large ? 58 : 48;
+  s_time_h   = 48;
   s_date_h   = large ? 26 : 20;
-  // date left margin ≈ left edge of centered time text.
-  // ROBOTO_BOLD_SUBSET_49: "HH:MM" ≈ 130px on 200px → starts at ~35px.
-  // LECO_38: "HH:MM" ≈ 90px on 144px → starts at ~27px.
-  s_date_px  = large ? w * 17 / 100 : w * 18 / 100;
+  s_date_px  = w * 18 / 100;
 
   // ---- Weather (top-right) ----
   int weather_x = w / 2;
@@ -396,9 +461,8 @@ static void main_window_load(Window *window) {
   s_time_layer = text_layer_create(GRect(0, time_y_top, w, s_time_h));
   text_layer_set_background_color(s_time_layer, GColorClear);
   text_layer_set_text_color(s_time_layer, s_settings.TextColor);
-  text_layer_set_font(s_time_layer, large
-    ? fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49)
-    : fonts_get_system_font(FONT_KEY_LECO_38_BOLD_NUMBERS));
+  text_layer_set_font(s_time_layer,
+    fonts_get_system_font(FONT_KEY_LECO_38_BOLD_NUMBERS));
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Date: left-aligned, starting at s_date_px
@@ -456,6 +520,7 @@ static void main_window_load(Window *window) {
   layer_set_hidden(s_card_layer, true);
   prv_apply_card_layout();
   prv_update_time();
+  prv_update_weather_display();  // apply ShowWeather visibility on startup
   prv_apply_layout(false);  // center time+date before JS responds
 }
 
@@ -510,7 +575,7 @@ static void init(void) {
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
-  app_message_open(512, 64);
+  app_message_open(1024, 64);
 
   prv_request_update();
 }

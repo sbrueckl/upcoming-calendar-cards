@@ -1,5 +1,6 @@
 # Pebble build artifacts
 build/
+package-lock.json
 .lock-waf_darwin_build
 .wafpickle-*
 

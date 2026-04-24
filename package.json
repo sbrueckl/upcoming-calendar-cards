@@ -1,9 +1,16 @@
 {
   "name": "upcoming-calendar-cards",
   "author": "Claude",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "keywords": [
-    "pebble-app"
+    "pebble-watchface",
+    "calendar",
+    "cards",
+    "upcoming",
+    "events",
+    "weather",
+    "configurable",
+    "countdown"
   ],
   "private": true,
   "dependencies": {
@@ -42,7 +49,11 @@
       "TextColor",
       "CalendarUrl",
       "TemperatureUnit",
-      "CountdownPosition"
+      "CountdownPosition",
+      "ShowWeather",
+      "ShowBattery",
+      "ShowBluetooth",
+      "DateFormat"
     ],
     "resources": {
       "media": []
