@@ -1,5 +1,26 @@
 module.exports = [
   {
+    "type": "section",
+    "items": [
+      {
+        "type": "heading",
+        "defaultValue": "Google Calendar"
+      },
+      {
+        "type": "text",
+        "defaultValue": "Paste your Google Calendar private iCal URL below. To find it: open Google Calendar on desktop → Settings (gear icon) → click your calendar name → scroll to 'Integrate calendar' → copy 'Secret address in iCal format'."
+      },
+      {
+        "type": "input",
+        "messageKey": "CalendarUrl",
+        "label": "iCal URL",
+        "defaultValue": "",
+        "attributes": {
+          "placeholder": "https://calendar.google.com/calendar/ical/..."
+        }
+      }
+    ]
+  },{
     "type": "heading",
     "defaultValue": "Upcoming Calendar Cards"
   },
@@ -112,28 +133,6 @@ module.exports = [
           { "label": "Top (above event name)", "value": 0 },
           { "label": "Bottom (below event name)", "value": 1 }
         ]
-      }
-    ]
-  },
-  {
-    "type": "section",
-    "items": [
-      {
-        "type": "heading",
-        "defaultValue": "Google Calendar"
-      },
-      {
-        "type": "text",
-        "defaultValue": "Paste your Google Calendar private iCal URL below. To find it: open Google Calendar on desktop → Settings (gear icon) → click your calendar name → scroll to 'Integrate calendar' → copy 'Secret address in iCal format'."
-      },
-      {
-        "type": "input",
-        "messageKey": "CalendarUrl",
-        "label": "iCal URL",
-        "defaultValue": "",
-        "attributes": {
-          "placeholder": "https://calendar.google.com/calendar/ical/..."
-        }
       }
     ]
   },
