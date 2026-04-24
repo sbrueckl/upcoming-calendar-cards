@@ -43,7 +43,7 @@
     "name": "upcoming-calendar-cards",
     "shortName": "Upcoming Calendar Cards",
     "longName": "Upcoming Calendar Cards",
-    "versionLabel": "1.1",
+    "versionLabel": "1.2",
     "companyName": "Claude",
     "appKeys": {
         "REQUEST_UPDATE": 10000,

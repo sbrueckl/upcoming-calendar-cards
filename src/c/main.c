@@ -33,7 +33,7 @@ static bool s_has_event;
 static bool s_show_card;  // event within 24 hours
 
 static char s_time_buf[8];
-static char s_date_buf[20];
+static char s_date_buf[32];
 static char s_countdown_label_buf[24];
 static char s_weather_buf[24];
 
@@ -170,7 +170,7 @@ static void prv_apply_layout(bool show_card) {
   if (show_card) {
     time_y = s_status_h + py + 2;
   } else {
-    bool date_visible = (s_settings.DateFormat != DATE_FORMAT_NONE);
+    bool date_visible = (s_settings.DateFormat < DATE_FORMAT_NONE);
     int block_h = s_time_h + (date_visible ? s_date_h : 0);
     time_y = (h - block_h) / 2;
     if (time_y < s_status_h + py + 2) time_y = s_status_h + py + 2;
@@ -203,7 +203,7 @@ static void prv_update_time(void) {
   }
   text_layer_set_text(s_time_layer, s_time_buf);
 
-  if (s_settings.DateFormat == DATE_FORMAT_NONE) {
+  if (s_settings.DateFormat >= DATE_FORMAT_NONE) {
     layer_set_hidden(text_layer_get_layer(s_date_layer), true);
   } else {
     layer_set_hidden(text_layer_get_layer(s_date_layer), false);
@@ -263,8 +263,10 @@ static void prv_request_update(void) {
 static void inbox_received_callback(DictionaryIterator *iterator, void *context) {
   bool event_changed    = false;
   bool settings_changed = false;
+  bool weather_changed  = false;
   Tuple *t;
 
+  // --- Event data (from JS) ---
   t = dict_find(iterator, MESSAGE_KEY_HAS_EVENT);
   if (t) { s_has_event = (t->value->int32 == 1); event_changed = true; }
 
@@ -277,12 +279,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   t = dict_find(iterator, MESSAGE_KEY_EVENT_MINUTE);
   if (t) { s_event_minute = (int)t->value->int32; }
 
+  // --- Weather data (from JS) ---
   t = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
-  if (t) { s_temperature = t->value->int32; s_has_weather = true; prv_update_weather_display(); }
+  if (t) { s_temperature = t->value->int32; s_has_weather = true; weather_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_CONDITIONS);
-  if (t) { snprintf(s_conditions, sizeof(s_conditions), "%s", t->value->cstring); prv_update_weather_display(); }
+  if (t) { snprintf(s_conditions, sizeof(s_conditions), "%s", t->value->cstring); weather_changed = true; }
 
+  // --- Clay settings: read ALL keys first before applying anything ---
   t = dict_find(iterator, MESSAGE_KEY_PrimaryColor);
   if (t) { s_settings.PrimaryColor = GColorFromHEX(t->value->int32); settings_changed = true; }
 
@@ -293,27 +297,24 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   if (t) { s_settings.TextColor = GColorFromHEX(t->value->int32); settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_TemperatureUnit);
-  if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; prv_update_weather_display(); }
+  if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_CountdownPosition);
-  if (t) { s_settings.CountdownPosition = (uint8_t)t->value->int32; settings_changed = true; prv_apply_card_layout(); }
+  if (t) { s_settings.CountdownPosition = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_ShowWeather);
-  if (t) { s_settings.ShowWeather = (uint8_t)t->value->int32; settings_changed = true;
-           layer_set_hidden(text_layer_get_layer(s_weather_layer), !s_settings.ShowWeather); }
+  if (t) { s_settings.ShowWeather = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_ShowBattery);
-  if (t) { s_settings.ShowBattery = (uint8_t)t->value->int32; settings_changed = true;
-           layer_mark_dirty(s_status_layer); }
+  if (t) { s_settings.ShowBattery = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_ShowBluetooth);
-  if (t) { s_settings.ShowBluetooth = (uint8_t)t->value->int32; settings_changed = true;
-           layer_mark_dirty(s_status_layer); }
+  if (t) { s_settings.ShowBluetooth = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_DateFormat);
-  if (t) { s_settings.DateFormat = (uint8_t)t->value->int32; settings_changed = true;
-           prv_update_time(); prv_apply_layout(s_show_card); }
+  if (t) { s_settings.DateFormat = (uint8_t)t->value->int32; settings_changed = true; }
 
+  // --- Apply all changes atomically ---
   if (settings_changed) {
     prv_save_settings();
     window_set_background_color(s_window, s_settings.PrimaryColor);
@@ -322,8 +323,12 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
     text_layer_set_text_color(s_weather_layer, s_settings.TextColor);
     layer_mark_dirty(s_bg_layer);
     layer_mark_dirty(s_status_layer);
+    prv_apply_card_layout();
+    prv_update_time();
+    prv_apply_layout(s_show_card);
   }
 
+  if (weather_changed || settings_changed) prv_update_weather_display();
   if (event_changed) prv_update_event_display();
 }
 
@@ -499,6 +504,7 @@ static void main_window_load(Window *window) {
   layer_set_hidden(s_card_layer, true);
   prv_apply_card_layout();
   prv_update_time();
+  prv_update_weather_display();  // apply ShowWeather visibility on startup
   prv_apply_layout(false);  // center time+date before JS responds
 }
 
@@ -553,7 +559,7 @@ static void init(void) {
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
-  app_message_open(512, 64);
+  app_message_open(1024, 64);
 
   prv_request_update();
 }
