@@ -413,12 +413,9 @@ static void main_window_load(Window *window) {
   int px_c = is_round ? w * 6 / 100 : 6;   // card horizontal margin
 
   s_status_h = 16;
-  s_time_h   = large ? 58 : 48;
+  s_time_h   = 48;
   s_date_h   = large ? 26 : 20;
-  // date left margin ≈ left edge of centered time text.
-  // ROBOTO_BOLD_SUBSET_49: "HH:MM" ≈ 130px on 200px → starts at ~35px.
-  // LECO_38: "HH:MM" ≈ 90px on 144px → starts at ~27px.
-  s_date_px  = large ? w * 17 / 100 : w * 18 / 100;
+  s_date_px  = w * 18 / 100;
 
   // ---- Weather (top-right) ----
   int weather_x = w / 2;
@@ -464,9 +461,8 @@ static void main_window_load(Window *window) {
   s_time_layer = text_layer_create(GRect(0, time_y_top, w, s_time_h));
   text_layer_set_background_color(s_time_layer, GColorClear);
   text_layer_set_text_color(s_time_layer, s_settings.TextColor);
-  text_layer_set_font(s_time_layer, large
-    ? fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49)
-    : fonts_get_system_font(FONT_KEY_LECO_38_BOLD_NUMBERS));
+  text_layer_set_font(s_time_layer,
+    fonts_get_system_font(FONT_KEY_LECO_38_BOLD_NUMBERS));
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Date: left-aligned, starting at s_date_px
