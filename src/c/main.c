@@ -171,15 +171,21 @@ static void prv_apply_layout(bool show_card) {
 
   int time_y, date_y;
 
+  bool date_visible = (s_settings.DateFormat < DATE_FORMAT_NONE);
+  int block_h = s_time_h + (date_visible ? s_date_h : 0);
+
   if (show_card) {
-    time_y = s_status_h + py + 2;
+    // Center time(+date) block in the space between status bar and card
+    int top     = s_status_h + py + 2;
+    int card_top = layer_get_frame(s_card_layer).origin.y;
+    int offset  = (card_top - top - block_h) / 2;
+    if (offset < 0) offset = 0;
+    time_y = top + offset;
   } else {
-    bool date_visible = (s_settings.DateFormat < DATE_FORMAT_NONE);
-    int block_h = s_time_h + (date_visible ? s_date_h : 0);
     time_y = (h - block_h) / 2;
     if (time_y < s_status_h + py + 2) time_y = s_status_h + py + 2;
   }
-  date_y = time_y + s_time_h;
+  date_y = time_y + s_time_h - 8;
 
   layer_set_frame(text_layer_get_layer(s_time_layer),
     GRect(0, time_y, w, s_time_h));
