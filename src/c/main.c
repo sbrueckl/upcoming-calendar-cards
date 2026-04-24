@@ -413,8 +413,12 @@ static void main_window_load(Window *window) {
   int px_c = is_round ? w * 6 / 100 : 6;   // card horizontal margin
 
   s_status_h = 16;
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
+  s_time_h   = 70;
+#else
   s_time_h   = 48;
-  s_date_h   = large ? 26 : 20;
+#endif
+  s_date_h   = large ? 30 : 20;
   s_date_px  = w * 18 / 100;
 
   // ---- Weather (top-right) ----
@@ -461,8 +465,13 @@ static void main_window_load(Window *window) {
   s_time_layer = text_layer_create(GRect(0, time_y_top, w, s_time_h));
   text_layer_set_background_color(s_time_layer, GColorClear);
   text_layer_set_text_color(s_time_layer, s_settings.TextColor);
+#if defined(PBL_PLATFORM_EMERY) || defined(PBL_PLATFORM_GABBRO)
+  text_layer_set_font(s_time_layer,
+    fonts_get_system_font(FONT_KEY_LECO_60_NUMBERS_AM_PM));
+#else
   text_layer_set_font(s_time_layer,
     fonts_get_system_font(FONT_KEY_LECO_38_BOLD_NUMBERS));
+#endif
   text_layer_set_text_alignment(s_time_layer, GTextAlignmentCenter);
 
   // Date: left-aligned, starting at s_date_px
