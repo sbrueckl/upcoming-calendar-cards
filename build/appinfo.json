@@ -1,0 +1,55 @@
+{
+    "displayName": "Upcoming Calendar Cards",
+    "uuid": "0d780997-e637-4877-955a-7ac79520d728",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+        "basalt",
+        "chalk",
+        "diorite",
+        "emery",
+        "flint",
+        "gabbro"
+    ],
+    "watchapp": {
+        "watchface": true
+    },
+    "capabilities": [
+        "location",
+        "configurable"
+    ],
+    "messageKeys": {
+        "REQUEST_UPDATE": 10000,
+        "HAS_EVENT": 10001,
+        "EVENT_TITLE": 10002,
+        "EVENT_HOUR": 10003,
+        "EVENT_MINUTE": 10004,
+        "TEMPERATURE": 10005,
+        "CONDITIONS": 10006,
+        "PrimaryColor": 10007,
+        "SecondaryColor": 10008,
+        "TextColor": 10009,
+        "CalendarUrl": 10010
+    },
+    "resources": {
+        "media": []
+    },
+    "name": "upcoming-calendar-cards",
+    "shortName": "Upcoming Calendar Cards",
+    "longName": "Upcoming Calendar Cards",
+    "versionLabel": "1.0",
+    "companyName": "Claude",
+    "appKeys": {
+        "REQUEST_UPDATE": 10000,
+        "HAS_EVENT": 10001,
+        "EVENT_TITLE": 10002,
+        "EVENT_HOUR": 10003,
+        "EVENT_MINUTE": 10004,
+        "TEMPERATURE": 10005,
+        "CONDITIONS": 10006,
+        "PrimaryColor": 10007,
+        "SecondaryColor": 10008,
+        "TextColor": 10009,
+        "CalendarUrl": 10010
+    }
+}

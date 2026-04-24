@@ -1,0 +1,49 @@
+{
+  "name": "upcoming-calendar-cards",
+  "author": "Claude",
+  "version": "1.0.1",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "dependencies": {
+    "@rebble/clay": "^1.0.8"
+  },
+  "pebble": {
+    "displayName": "Upcoming Calendar Cards",
+    "uuid": "0d780997-e637-4877-955a-7ac79520d728",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "capabilities": [
+      "configurable",
+      "location"
+    ],
+    "messageKeys": [
+      "REQUEST_UPDATE",
+      "HAS_EVENT",
+      "EVENT_TITLE",
+      "EVENT_HOUR",
+      "EVENT_MINUTE",
+      "TEMPERATURE",
+      "CONDITIONS",
+      "PrimaryColor",
+      "SecondaryColor",
+      "TextColor",
+      "CalendarUrl"
+    ],
+    "resources": {
+      "media": []
+    }
+  }
+}
