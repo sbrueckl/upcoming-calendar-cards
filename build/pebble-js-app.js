@@ -426,6 +426,13 @@
 	  );
 	}
 	
+	function getTempUnit() {
+	  try {
+	    var raw = localStorage.getItem('ucc-temp-unit');
+	    return raw === '1' ? 'fahrenheit' : 'celsius';
+	  } catch (e) { return 'celsius'; }
+	}
+	
 	function fetchWeather() {
 	  navigator.geolocation.getCurrentPosition(
 	    function(pos) {
@@ -433,7 +440,7 @@
 	      var lon = pos.coords.longitude.toFixed(4);
 	      var url = 'https://api.open-meteo.com/v1/forecast' +
 	        '?latitude=' + lat + '&longitude=' + lon +
-	        '&current=temperature_2m,weather_code&temperature_unit=celsius';
+	        '&current=temperature_2m,weather_code&temperature_unit=' + getTempUnit();
 	
 	      var xhr = new XMLHttpRequest();
 	      xhr.onload = function() {
@@ -481,6 +488,10 @@
 	        localStorage.setItem('ucc-ical-url', url);
 	        console.log('CalendarUrl saved, length: ' + url.length);
 	      }
+	      var tuRaw = data['TemperatureUnit'];
+	      var tuVal = tuRaw && typeof tuRaw === 'object' ? tuRaw.value : tuRaw;
+	      localStorage.setItem('ucc-temp-unit', tuVal ? '1' : '0');
+	      console.log('TemperatureUnit saved: ' + (tuVal ? 'fahrenheit' : 'celsius'));
 	    } catch (ex) {
 	      console.log('webviewclosed parse error: ' + ex.message);
 	    }
@@ -545,7 +556,7 @@
 /* 5 */
 /***/ (function(module, exports) {
 
-	module.exports = {"CONDITIONS":10006,"CalendarUrl":10010,"EVENT_HOUR":10003,"EVENT_MINUTE":10004,"EVENT_TITLE":10002,"HAS_EVENT":10001,"PrimaryColor":10007,"REQUEST_UPDATE":10000,"SecondaryColor":10008,"TEMPERATURE":10005,"TextColor":10009}
+	module.exports = {"CONDITIONS":10006,"CalendarUrl":10010,"EVENT_HOUR":10003,"EVENT_MINUTE":10004,"EVENT_TITLE":10002,"HAS_EVENT":10001,"PrimaryColor":10007,"REQUEST_UPDATE":10000,"SecondaryColor":10008,"TEMPERATURE":10005,"TemperatureUnit":10011,"TextColor":10009}
 
 /***/ }),
 /* 6 */
@@ -580,6 +591,21 @@
 	        "messageKey": "TextColor",
 	        "label": "Text color",
 	        "defaultValue": "0xFFFFFF"
+	      }
+	    ]
+	  },
+	  {
+	    "type": "section",
+	    "items": [
+	      {
+	        "type": "heading",
+	        "defaultValue": "Weather"
+	      },
+	      {
+	        "type": "toggle",
+	        "messageKey": "TemperatureUnit",
+	        "label": "Fahrenheit (off = Celsius)",
+	        "defaultValue": false
 	      }
 	    ]
 	  },

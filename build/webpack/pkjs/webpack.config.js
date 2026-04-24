@@ -6,7 +6,7 @@ const isSandbox = false;
 
 // Array with absolute file path strings
 const entryFilenames = ["_pkjs_shared_additions.js",
-"/Users/sas/Projects/pebble/pebble-watchface-agent-skill/samples/upcoming-calendar-cards/src/pkjs/index.js"];
+"/Users/sas/Projects/git/upcoming-calendar-cards/src/pkjs/index.js"];
 
 // folder path string
 const outputPath = "build";
@@ -18,11 +18,11 @@ const outputFilename = "pebble-js-app.js";
 const resolveRoots = ["/Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/common/include",
 "/Users/sas/Library/Application Support/Pebble SDK/SDKs/current/sdk-core/pebble/common/tools/webpack",
 "/Users/sas/Library/Application Support/Pebble SDK/SDKs/current/node_modules",
-"/Users/sas/Projects/pebble/pebble-watchface-agent-skill/samples/upcoming-calendar-cards/build/js"];
+"/Users/sas/Projects/git/upcoming-calendar-cards/build/js"];
 
 // Object, { alias1: 'path1', ... }
 const resolveAliases = {"@rebble/clay": "@rebble/clay/dist/js",
-"app_package.json": "/Users/sas/Projects/pebble/pebble-watchface-agent-skill/samples/upcoming-calendar-cards/package.json"};
+"app_package.json": "/Users/sas/Projects/git/upcoming-calendar-cards/package.json"};
 
 // null or Object with key 'sourceMapFilename'
 const sourceMapConfig = {"sourceMapFilename": "pebble-js-app.js.map"};

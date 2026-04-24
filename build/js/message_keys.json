@@ -9,5 +9,6 @@
     "REQUEST_UPDATE": 10000,
     "SecondaryColor": 10008,
     "TEMPERATURE": 10005,
+    "TemperatureUnit": 10011,
     "TextColor": 10009
 }

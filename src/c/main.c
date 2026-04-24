@@ -3,9 +3,10 @@
 #define SETTINGS_KEY 1
 
 typedef struct {
-  GColor PrimaryColor;
-  GColor SecondaryColor;
-  GColor TextColor;
+  GColor  PrimaryColor;
+  GColor  SecondaryColor;
+  GColor  TextColor;
+  uint8_t TemperatureUnit;  // 0 = Celsius, 1 = Fahrenheit
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -29,7 +30,7 @@ static bool s_show_card;  // event within 24 hours
 static char s_time_buf[8];
 static char s_date_buf[20];
 static char s_countdown_label_buf[24];
-static char s_weather_buf[20];
+static char s_weather_buf[24];
 
 static int32_t s_temperature;
 static char    s_conditions[16];
@@ -53,9 +54,10 @@ static GPath    *s_diag_path = NULL;
 // ---- Settings ----
 
 static void prv_default_settings(void) {
-  s_settings.PrimaryColor   = PBL_IF_COLOR_ELSE(GColorCadetBlue, GColorBlack);
-  s_settings.SecondaryColor = PBL_IF_COLOR_ELSE(GColorSunsetOrange, GColorBlack);
-  s_settings.TextColor      = GColorWhite;
+  s_settings.PrimaryColor     = PBL_IF_COLOR_ELSE(GColorCadetBlue, GColorBlack);
+  s_settings.SecondaryColor   = PBL_IF_COLOR_ELSE(GColorSunsetOrange, GColorBlack);
+  s_settings.TextColor        = GColorWhite;
+  s_settings.TemperatureUnit  = 0;
 }
 
 static void prv_save_settings(void) {
@@ -178,8 +180,10 @@ static void prv_update_event_display(void) {
 
 static void prv_update_weather_display(void) {
   if (s_has_weather) {
-    snprintf(s_weather_buf, sizeof(s_weather_buf), "%s %d°",
-             s_conditions, (int)s_temperature);
+    int temp = (int)s_temperature;
+    const char *unit = s_settings.TemperatureUnit ? "\xc2\xb0""F" : "\xc2\xb0""C";
+    snprintf(s_weather_buf, sizeof(s_weather_buf), "%s %d%s",
+             s_conditions, temp, unit);
   } else {
     s_weather_buf[0] = '\0';
   }
@@ -227,6 +231,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   t = dict_find(iterator, MESSAGE_KEY_TextColor);
   if (t) { s_settings.TextColor = GColorFromHEX(t->value->int32); settings_changed = true; }
+
+  t = dict_find(iterator, MESSAGE_KEY_TemperatureUnit);
+  if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; prv_update_weather_display(); }
 
   if (settings_changed) {
     prv_save_settings();

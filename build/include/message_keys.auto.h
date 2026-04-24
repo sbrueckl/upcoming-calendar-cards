@@ -16,4 +16,5 @@ extern uint32_t MESSAGE_KEY_PrimaryColor;
 extern uint32_t MESSAGE_KEY_REQUEST_UPDATE;
 extern uint32_t MESSAGE_KEY_SecondaryColor;
 extern uint32_t MESSAGE_KEY_TEMPERATURE;
+extern uint32_t MESSAGE_KEY_TemperatureUnit;
 extern uint32_t MESSAGE_KEY_TextColor;
