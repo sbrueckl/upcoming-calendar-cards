@@ -111,7 +111,11 @@ static void status_update_proc(Layer *layer, GContext *ctx) {
     }
   }
   if (s_settings.ShowBluetooth && s_bt_connected) {
-    graphics_fill_circle(ctx, GPoint(bat_x + bat_w + 7, bat_y + bat_h / 2), 3);
+    // BT dot: right of battery when both visible; left-aligned (bat_x) when battery hidden
+    int bt_cx = s_settings.ShowBattery
+      ? bat_x + bat_w + 7
+      : bat_x + 3;
+    graphics_fill_circle(ctx, GPoint(bt_cx, bat_y + bat_h / 2), 3);
   }
 }
 
@@ -299,8 +303,14 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   t = dict_find(iterator, MESSAGE_KEY_TemperatureUnit);
   if (t) { s_settings.TemperatureUnit = (uint8_t)t->value->int32; settings_changed = true; }
 
+  // Clay select components use jQuery .val() → sends value as CSTRING, not integer.
+  // Read both types to handle the actual wire format.
   t = dict_find(iterator, MESSAGE_KEY_CountdownPosition);
-  if (t) { s_settings.CountdownPosition = (uint8_t)t->value->int32; settings_changed = true; }
+  if (t) {
+    s_settings.CountdownPosition = (t->type == TUPLE_CSTRING)
+      ? (uint8_t)atoi(t->value->cstring) : (uint8_t)t->value->int32;
+    settings_changed = true;
+  }
 
   t = dict_find(iterator, MESSAGE_KEY_ShowWeather);
   if (t) { s_settings.ShowWeather = (uint8_t)t->value->int32; settings_changed = true; }
@@ -312,7 +322,11 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   if (t) { s_settings.ShowBluetooth = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_DateFormat);
-  if (t) { s_settings.DateFormat = (uint8_t)t->value->int32; settings_changed = true; }
+  if (t) {
+    s_settings.DateFormat = (t->type == TUPLE_CSTRING)
+      ? (uint8_t)atoi(t->value->cstring) : (uint8_t)t->value->int32;
+    settings_changed = true;
+  }
 
   // --- Apply all changes atomically ---
   if (settings_changed) {
