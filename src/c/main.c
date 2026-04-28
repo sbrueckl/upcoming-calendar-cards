@@ -349,16 +349,11 @@ static void prv_accel_tap_handler(AccelAxisType axis, int32_t direction) {
   GFont title_font = fonts_get_system_font(
     (card_h >= 90) ? FONT_KEY_GOTHIC_28_BOLD : FONT_KEY_GOTHIC_18_BOLD);
 
-  // Don't scroll if text fits on one line
-  GSize fit = graphics_text_layout_get_content_size(
-    s_event_title, title_font, GRect(0, 0, ci_w, s_scroll_line_h),
-    GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft);
-  if (fit.w <= ci_w) return;
-
-  // Measure actual text width for accurate stop condition
+  // Measure full text width (wide box = no truncation, no wrap)
   GSize sz = graphics_text_layout_get_content_size(
     s_event_title, title_font, GRect(0, 0, 400, s_scroll_line_h),
-    GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft);
+    GTextOverflowModeWordWrap, GTextAlignmentLeft);
+  if (sz.w <= ci_w) return;  // fits on one line, no scroll needed
   s_scroll_max = sz.w;
 
   layer_set_frame(text_layer_get_layer(s_event_title_layer),
