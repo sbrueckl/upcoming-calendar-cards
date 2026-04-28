@@ -147,12 +147,12 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
   #define CARD_INNER_PX 12
 #elif defined(PBL_PLATFORM_GABBRO)
   #define CARD_MARGIN    8
-  #define CARD_GAP       6
+  #define CARD_GAP       0
   #define CARD_LBL_H    24
   #define CARD_INNER_PX 12
 #elif defined(PBL_PLATFORM_CHALK)
   #define CARD_MARGIN    6
-  #define CARD_GAP       4
+  #define CARD_GAP       0
   #define CARD_LBL_H    20
   #define CARD_INNER_PX 10
 #elif defined(PBL_PLATFORM_BASALT)
@@ -162,12 +162,12 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
   #define CARD_INNER_PX 10
 #elif defined(PBL_PLATFORM_FLINT)
   #define CARD_MARGIN    6
-  #define CARD_GAP       4
+  #define CARD_GAP       0
   #define CARD_LBL_H    20
   #define CARD_INNER_PX 10
 #else  // diorite
   #define CARD_MARGIN    6 // top/bottom padding inside card
-  #define CARD_GAP       4 // gap between countdown label and event
+  #define CARD_GAP       0 // gap between countdown label and event
   #define CARD_LBL_H    20 // height of countdown label row
   #define CARD_INNER_PX 10 // left/right padding inside card
 #endif
@@ -697,7 +697,7 @@ static void main_window_load(Window *window) {
   s_settings.ShowBattery       = 1;   // 0 = hidden
   s_settings.ShowBluetooth     = 1;   // 0 = hidden
   s_settings.DateFormat        = 0;   // 0-5 = format, 6 = hidden
-  s_settings.CountdownPosition = 1;   // 0 = top, 1 = bottom
+  s_settings.CountdownPosition = 0;   // 0 = top, 1 = bottom
   s_settings.TemperatureUnit   = 0;   // 0 = Celsius, 1 = Fahrenheit
 
   // --- Debug weather ---
@@ -709,8 +709,8 @@ static void main_window_load(Window *window) {
   s_has_event    = true;
   s_event_hour   = 12;
   s_event_minute = 30;
-  snprintf(s_event_title, sizeof(s_event_title), "Short Event");
-  //snprintf(s_event_title, sizeof(s_event_title), "Long Event gpgpR anpevqnlonger");
+  //snprintf(s_event_title, sizeof(s_event_title), "Short Event");
+  snprintf(s_event_title, sizeof(s_event_title), "Long Event gpgpR anpevqnlonger");
 
   prv_apply_card_layout();
   prv_update_time();
