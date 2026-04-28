@@ -390,6 +390,7 @@ static void prv_update_event_display(void) {
 
     text_layer_set_text(s_countdown_label_layer, s_countdown_label_buf);
     text_layer_set_text(s_event_title_layer, s_event_title);
+    prv_apply_card_layout();
   }
 }
 
