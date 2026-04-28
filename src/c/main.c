@@ -271,6 +271,10 @@ static void prv_update_time(void) {
 
 // ---- Scroll (wrist-flick marquee) ----
 
+static int s_scroll_line_h  = 22;  // single-line height set when scroll starts
+static int s_scroll_line_y  = 0;   // vertical center position set when scroll starts
+static int s_scroll_max     = 0;   // total px to scroll before reset
+
 static void prv_scroll_tick(void *context) {
   s_scroll_timer = NULL;
   if (!s_show_card || !s_event_title_layer) return;
@@ -280,30 +284,47 @@ static void prv_scroll_tick(void *context) {
 
   s_scroll_offset += px;
 
-  GRect cb  = layer_get_bounds(s_card_layer);
-  int ci_px = CARD_INNER_PX;
-  int ci_w  = cb.size.w - 2 * ci_px;
-
-  if (s_scroll_offset > ci_w + 260) {
+  if (s_scroll_offset > s_scroll_max) {
     prv_apply_card_layout();
     s_scroll_offset = 0;
     return;
   }
 
-  GRect f = layer_get_frame(text_layer_get_layer(s_event_title_layer));
-  f.origin.x = ci_px - s_scroll_offset;
-  f.size.w   = 320;
-  layer_set_frame(text_layer_get_layer(s_event_title_layer), f);
+  GRect cb  = layer_get_bounds(s_card_layer);
+  int ci_px = CARD_INNER_PX;
+  layer_set_frame(text_layer_get_layer(s_event_title_layer),
+    GRect(ci_px - s_scroll_offset, s_scroll_line_y, 320, s_scroll_line_h));
 
   s_scroll_timer = app_timer_register(50, prv_scroll_tick, NULL);
 }
 
 static void prv_accel_tap_handler(AccelAxisType axis, int32_t direction) {
-  if (!s_show_card) return;
+  if (!s_show_card || !s_event_title_layer || !s_card_layer) return;
   if (s_settings.ScrollSpeed == 0) return;
   if (s_scroll_timer) return;
+
+  GRect cb   = layer_get_bounds(s_card_layer);
+  int card_h = cb.size.h;
+  int card_w = cb.size.w;
+  int ci_px  = CARD_INNER_PX;
+  int ci_w   = card_w - 2 * ci_px;
+
+  // Approximate single-line height by font size
+  s_scroll_line_h = (card_h >= 90) ? 34 : 22;
+  s_scroll_line_y = (card_h - s_scroll_line_h) / 2;
+
+  // Stop as soon as text has scrolled fully past left edge
+  // char width estimate: ~14px large, ~10px small
+  int char_w = (card_h >= 90) ? 14 : 10;
+  int text_w = (int)strlen(s_event_title) * char_w;
+  s_scroll_max = ci_w + text_w;
+
+  // Set initial centered frame before first tick
+  layer_set_frame(text_layer_get_layer(s_event_title_layer),
+    GRect(ci_px, s_scroll_line_y, 320, s_scroll_line_h));
+
   s_scroll_offset = 0;
-  s_scroll_timer = app_timer_register(50, prv_scroll_tick, NULL);
+  s_scroll_timer  = app_timer_register(50, prv_scroll_tick, NULL);
 }
 
 // ---- Event display ----
