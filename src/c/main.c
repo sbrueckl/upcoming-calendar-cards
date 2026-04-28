@@ -1,5 +1,7 @@
 #include <pebble.h>
 
+#define DEBUG_EVENT  // uncomment to show a fake event for layout testing
+
 #define SETTINGS_KEY 1
 
 typedef struct {
@@ -128,6 +130,40 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
 
 #define DATE_FORMAT_NONE 6  // sentinel: hide date layer
 
+// ---- Card layout tuning (edit per platform) ----
+//                        MARGIN  GAP  LBL_H  INNER_PX
+#if defined(PBL_PLATFORM_EMERY)
+  #define CARD_MARGIN    8
+  #define CARD_GAP       4
+  #define CARD_LBL_H    30
+  #define CARD_INNER_PX 12
+#elif defined(PBL_PLATFORM_GABBRO)
+  #define CARD_MARGIN    8
+  #define CARD_GAP       6
+  #define CARD_LBL_H    24
+  #define CARD_INNER_PX 12
+#elif defined(PBL_PLATFORM_CHALK)
+  #define CARD_MARGIN    6
+  #define CARD_GAP       4
+  #define CARD_LBL_H    20
+  #define CARD_INNER_PX 10
+#elif defined(PBL_PLATFORM_BASALT)
+  #define CARD_MARGIN    6
+  #define CARD_GAP       4
+  #define CARD_LBL_H    20
+  #define CARD_INNER_PX 10
+#elif defined(PBL_PLATFORM_FLINT)
+  #define CARD_MARGIN    6
+  #define CARD_GAP       4
+  #define CARD_LBL_H    20
+  #define CARD_INNER_PX 10
+#else  // diorite
+  #define CARD_MARGIN    6 // top/bottom padding inside card
+  #define CARD_GAP       4 // gap between countdown label and event
+  #define CARD_LBL_H    20 // height of countdown label row
+  #define CARD_INNER_PX 10 // left/right padding inside card
+#endif
+
 // ---- Card interior layout (positions countdown label vs event title) ----
 
 static void prv_apply_card_layout(void) {
@@ -135,11 +171,11 @@ static void prv_apply_card_layout(void) {
   GRect cb = layer_get_bounds(s_card_layer);
   int card_h = cb.size.h;
   int card_w = cb.size.w;
-  int ci_px  = 10;
+  int ci_px  = CARD_INNER_PX;
   int ci_w   = card_w - 2 * ci_px;
-  int lbl_h  = (card_h >= 50) ? 22 : 18;
-  int margin = 10;
-  int gap    = 8;
+  int lbl_h  = CARD_LBL_H;
+  int margin = CARD_MARGIN;
+  int gap    = CARD_GAP;
 
   int lbl_y, title_y, title_h;
   if (s_settings.CountdownPosition == 0) {
@@ -282,6 +318,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   Tuple *t;
 
   // --- Event data (from JS) ---
+#ifndef DEBUG_EVENT
   t = dict_find(iterator, MESSAGE_KEY_HAS_EVENT);
   if (t) { s_has_event = (t->value->int32 == 1); event_changed = true; }
 
@@ -293,6 +330,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   t = dict_find(iterator, MESSAGE_KEY_EVENT_MINUTE);
   if (t) { s_event_minute = (int)t->value->int32; }
+#endif
 
   // --- Weather data (from JS) ---
   t = dict_find(iterator, MESSAGE_KEY_TEMPERATURE);
@@ -354,7 +392,11 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   }
 
   if (weather_changed || settings_changed) prv_update_weather_display();
+#ifndef DEBUG_EVENT
   if (event_changed) prv_update_event_display();
+#else
+  (void)event_changed;
+#endif
 }
 
 static void inbox_dropped_callback(AppMessageResult reason, void *context) {
@@ -436,7 +478,7 @@ static void main_window_load(Window *window) {
   // Compute time+date block bottom when shown at top
   int time_y_top  = s_status_h + py + 2;
   int date_y_top  = time_y_top + s_time_h;
-  int card_y      = date_y_top + s_date_h + (large ? 10 : 8);
+  int card_y      = date_y_top + s_date_h + (large ? 10 : 5);
   int card_w      = w - 2 * px_c;
   int card_h      = h - card_y - py - 4;
   if (card_h < 60) card_h = 60;
@@ -535,8 +577,37 @@ static void main_window_load(Window *window) {
   layer_set_hidden(s_card_layer, true);
   prv_apply_card_layout();
   prv_update_time();
-  prv_update_weather_display();  // apply ShowWeather visibility on startup
-  prv_apply_layout(false);  // center time+date before JS responds
+  prv_update_weather_display();
+  prv_apply_layout(false);
+
+#ifdef DEBUG_EVENT
+  // --- Debug settings (edit freely) ---
+  s_settings.PrimaryColor      = PBL_IF_COLOR_ELSE(GColorCadetBlue, GColorBlack);
+  s_settings.SecondaryColor    = PBL_IF_COLOR_ELSE(GColorSunsetOrange, GColorBlack);
+  s_settings.TextColor         = GColorWhite;
+  s_settings.ShowWeather       = 1;   // 0 = hidden
+  s_settings.ShowBattery       = 1;   // 0 = hidden
+  s_settings.ShowBluetooth     = 1;   // 0 = hidden
+  s_settings.DateFormat        = 0;   // 0-5 = format, 6 = hidden
+  s_settings.CountdownPosition = 1;   // 0 = top, 1 = bottom
+  s_settings.TemperatureUnit   = 0;   // 0 = Celsius, 1 = Fahrenheit
+
+  // --- Debug weather ---
+  s_has_weather  = true;
+  s_temperature  = 18;
+  snprintf(s_conditions, sizeof(s_conditions), "Clear");
+
+  // --- Debug event ---
+  s_has_event    = true;
+  s_event_hour   = 12;
+  s_event_minute = 30;
+  snprintf(s_event_title, sizeof(s_event_title), "Long Event Name andevenlonger");
+
+  prv_apply_card_layout();
+  prv_update_time();
+  prv_update_weather_display();
+  prv_update_event_display();
+#endif
 }
 
 static void main_window_unload(Window *window) {
