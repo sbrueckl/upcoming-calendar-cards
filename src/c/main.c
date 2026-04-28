@@ -1,6 +1,6 @@
 #include <pebble.h>
 
-#define DEBUG_EVENT  // uncomment to show a fake event for layout testing
+//#define DEBUG_EVENT  // uncomment to show a fake event for layout testing
 
 #define SETTINGS_KEY 1
 
