@@ -157,7 +157,7 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
   #define CARD_INNER_PX 10
 #elif defined(PBL_PLATFORM_BASALT)
   #define CARD_MARGIN    6
-  #define CARD_GAP       4
+  #define CARD_GAP       0
   #define CARD_LBL_H    20
   #define CARD_INNER_PX 10
 #elif defined(PBL_PLATFORM_FLINT)
@@ -696,7 +696,8 @@ static void main_window_load(Window *window) {
   s_has_event    = true;
   s_event_hour   = 12;
   s_event_minute = 30;
-  snprintf(s_event_title, sizeof(s_event_title), "Long Event Name andevenlonger");
+  snprintf(s_event_title, sizeof(s_event_title), "Short Event");
+  //snprintf(s_event_title, sizeof(s_event_title), "Long Event gpgpR anpevqnlonger");
 
   prv_apply_card_layout();
   prv_update_time();
