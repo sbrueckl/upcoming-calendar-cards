@@ -1,7 +1,7 @@
 {
   "name": "upcoming-calendar-cards",
   "author": "Claude",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "keywords": [
     "pebble-watchface",
     "calendar",
@@ -53,7 +53,8 @@
       "ShowWeather",
       "ShowBattery",
       "ShowBluetooth",
-      "DateFormat"
+      "DateFormat",
+      "ScrollSpeed"
     ],
     "resources": {
       "media": []

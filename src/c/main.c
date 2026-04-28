@@ -14,6 +14,7 @@ typedef struct {
   uint8_t ShowBattery;        // 1 = visible (default), 0 = hidden
   uint8_t ShowBluetooth;      // 1 = visible (default), 0 = hidden
   uint8_t DateFormat;         // 0-5 = format index, 6 = hidden
+  uint8_t ScrollSpeed;        // 0=off, 1=slow, 2=medium, 3=fast
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -46,6 +47,10 @@ static bool    s_has_weather;
 static uint8_t s_battery_pct;
 static bool    s_bt_connected;
 
+// Scroll state
+static AppTimer *s_scroll_timer  = NULL;
+static int       s_scroll_offset = 0;
+
 // Cached layout values
 static int s_time_h;
 static int s_date_h;
@@ -70,6 +75,7 @@ static void prv_default_settings(void) {
   s_settings.ShowBattery         = 1;
   s_settings.ShowBluetooth       = 1;
   s_settings.DateFormat          = 0;
+  s_settings.ScrollSpeed         = 1;
 }
 
 static void prv_save_settings(void) {
@@ -135,7 +141,7 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
 #if defined(PBL_PLATFORM_EMERY)
   #define CARD_MARGIN    8
   #define CARD_GAP       4
-  #define CARD_LBL_H    30
+  #define CARD_LBL_H    24
   #define CARD_INNER_PX 12
 #elif defined(PBL_PLATFORM_GABBRO)
   #define CARD_MARGIN    8
@@ -263,6 +269,43 @@ static void prv_update_time(void) {
   }
 }
 
+// ---- Scroll (wrist-flick marquee) ----
+
+static void prv_scroll_tick(void *context) {
+  s_scroll_timer = NULL;
+  if (!s_show_card || !s_event_title_layer) return;
+
+  static const int speeds[] = {0, 2, 4, 7};
+  int px = speeds[s_settings.ScrollSpeed < 4 ? s_settings.ScrollSpeed : 1];
+
+  s_scroll_offset += px;
+
+  GRect cb  = layer_get_bounds(s_card_layer);
+  int ci_px = CARD_INNER_PX;
+  int ci_w  = cb.size.w - 2 * ci_px;
+
+  if (s_scroll_offset > ci_w + 260) {
+    prv_apply_card_layout();
+    s_scroll_offset = 0;
+    return;
+  }
+
+  GRect f = layer_get_frame(text_layer_get_layer(s_event_title_layer));
+  f.origin.x = ci_px - s_scroll_offset;
+  f.size.w   = 320;
+  layer_set_frame(text_layer_get_layer(s_event_title_layer), f);
+
+  s_scroll_timer = app_timer_register(50, prv_scroll_tick, NULL);
+}
+
+static void prv_accel_tap_handler(AccelAxisType axis, int32_t direction) {
+  if (!s_show_card) return;
+  if (s_settings.ScrollSpeed == 0) return;
+  if (s_scroll_timer) return;
+  s_scroll_offset = 0;
+  s_scroll_timer = app_timer_register(50, prv_scroll_tick, NULL);
+}
+
 // ---- Event display ----
 
 static void prv_update_event_display(void) {
@@ -373,6 +416,13 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   t = dict_find(iterator, MESSAGE_KEY_DateFormat);
   if (t) {
     s_settings.DateFormat = (t->type == TUPLE_CSTRING)
+      ? (uint8_t)atoi(t->value->cstring) : (uint8_t)t->value->int32;
+    settings_changed = true;
+  }
+
+  t = dict_find(iterator, MESSAGE_KEY_ScrollSpeed);
+  if (t) {
+    s_settings.ScrollSpeed = (t->type == TUPLE_CSTRING)
       ? (uint8_t)atoi(t->value->cstring) : (uint8_t)t->value->int32;
     settings_changed = true;
   }
@@ -663,10 +713,14 @@ static void init(void) {
   app_message_register_outbox_sent(outbox_sent_callback);
   app_message_open(1024, 64);
 
+  accel_tap_service_subscribe(prv_accel_tap_handler);
+
   prv_request_update();
 }
 
 static void deinit(void) {
+  accel_tap_service_unsubscribe();
+  if (s_scroll_timer) { app_timer_cancel(s_scroll_timer); s_scroll_timer = NULL; }
   tick_timer_service_unsubscribe();
   battery_state_service_unsubscribe();
   connection_service_unsubscribe();

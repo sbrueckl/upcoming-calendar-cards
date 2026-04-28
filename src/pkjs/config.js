@@ -133,6 +133,18 @@ module.exports = [
           { "label": "Top (above event name)", "value": 0 },
           { "label": "Bottom (below event name)", "value": 1 }
         ]
+      },
+      {
+        "type": "select",
+        "messageKey": "ScrollSpeed",
+        "label": "Scroll speed (wrist flick)",
+        "defaultValue": 1,
+        "options": [
+          { "label": "Off",    "value": 0 },
+          { "label": "Slow",   "value": 1 },
+          { "label": "Medium", "value": 2 },
+          { "label": "Fast",   "value": 3 }
+        ]
       }
     ]
   },
