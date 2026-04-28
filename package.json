@@ -54,7 +54,8 @@
       "ShowBattery",
       "ShowBluetooth",
       "DateFormat",
-      "ScrollSpeed"
+      "ScrollSpeed",
+      "ShowCountdown"
     ],
     "resources": {
       "media": []

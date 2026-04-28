@@ -125,6 +125,12 @@ module.exports = [
         "defaultValue": "Calendar Card"
       },
       {
+        "type": "toggle",
+        "messageKey": "ShowCountdown",
+        "label": "Show countdown",
+        "defaultValue": true
+      },
+      {
         "type": "select",
         "messageKey": "CountdownPosition",
         "label": "Countdown position",

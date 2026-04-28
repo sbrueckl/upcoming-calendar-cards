@@ -15,6 +15,7 @@ typedef struct {
   uint8_t ShowBluetooth;      // 1 = visible (default), 0 = hidden
   uint8_t DateFormat;         // 0-5 = format index, 6 = hidden
   uint8_t ScrollSpeed;        // 0=off, 1=slow, 2=medium, 3=fast
+  uint8_t ShowCountdown;      // 1=visible (default), 0=hidden
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -76,6 +77,7 @@ static void prv_default_settings(void) {
   s_settings.ShowBluetooth       = 1;
   s_settings.DateFormat          = 0;
   s_settings.ScrollSpeed         = 1;
+  s_settings.ShowCountdown       = 1;
 }
 
 static void prv_save_settings(void) {
@@ -139,9 +141,9 @@ static void card_update_proc(Layer *layer, GContext *ctx) {
 // ---- Card layout tuning (edit per platform) ----
 //                        MARGIN  GAP  LBL_H  INNER_PX
 #if defined(PBL_PLATFORM_EMERY)
-  #define CARD_MARGIN    8
-  #define CARD_GAP       4
-  #define CARD_LBL_H    24
+  #define CARD_MARGIN    7
+  #define CARD_GAP       0
+  #define CARD_LBL_H    22
   #define CARD_INNER_PX 12
 #elif defined(PBL_PLATFORM_GABBRO)
   #define CARD_MARGIN    8
@@ -183,8 +185,15 @@ static void prv_apply_card_layout(void) {
   int margin = CARD_MARGIN;
   int gap    = CARD_GAP;
 
+  bool show_lbl = s_settings.ShowCountdown;
+  layer_set_hidden(text_layer_get_layer(s_countdown_label_layer), !show_lbl);
+
   int lbl_y, title_y, title_h;
-  if (s_settings.CountdownPosition == 0) {
+  if (!show_lbl) {
+    title_y = margin;
+    title_h = card_h - 2 * margin;
+    lbl_y   = 0;
+  } else if (s_settings.CountdownPosition == 0) {
     lbl_y   = margin;
     title_y = lbl_y + lbl_h + gap;
     title_h = card_h - title_y - margin;
@@ -307,17 +316,29 @@ static void prv_accel_tap_handler(AccelAxisType axis, int32_t direction) {
   int card_h = cb.size.h;
   int card_w = cb.size.w;
   int ci_px  = CARD_INNER_PX;
-  int ci_w   = card_w - 2 * ci_px;
 
-  // Approximate single-line height by font size
+  // Single-line height and vertical center within the title area
   s_scroll_line_h = (card_h >= 90) ? 34 : 22;
-  s_scroll_line_y = (card_h - s_scroll_line_h) / 2;
+  bool show_lbl   = s_settings.ShowCountdown;
+  int title_area_top, title_area_h;
+  if (!show_lbl) {
+    title_area_top = CARD_MARGIN;
+    title_area_h   = card_h - 2 * CARD_MARGIN;
+  } else if (s_settings.CountdownPosition == 0) {
+    title_area_top = CARD_MARGIN + CARD_LBL_H + CARD_GAP;
+    title_area_h   = card_h - title_area_top - CARD_MARGIN;
+  } else {
+    title_area_top = CARD_MARGIN;
+    title_area_h   = card_h - CARD_MARGIN - CARD_LBL_H - CARD_GAP - CARD_MARGIN;
+  }
+  s_scroll_line_y = title_area_top + (title_area_h - s_scroll_line_h) / 2;
+  if (s_scroll_line_y < title_area_top) s_scroll_line_y = title_area_top;
 
-  // Stop as soon as text has scrolled fully past left edge
-  // char width estimate: ~14px large, ~10px small
-  int char_w = (card_h >= 90) ? 14 : 10;
+  // Stop when text has scrolled fully past the left edge of the card content
+  // char width estimate: ~15px large font, ~11px small font
+  int char_w = (card_h >= 90) ? 15 : 11;
   int text_w = (int)strlen(s_event_title) * char_w;
-  s_scroll_max = ci_w + text_w;
+  s_scroll_max = ci_px + text_w;
 
   // Set initial centered frame before first tick
   layer_set_frame(text_layer_get_layer(s_event_title_layer),
@@ -434,6 +455,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
   t = dict_find(iterator, MESSAGE_KEY_ShowBluetooth);
   if (t) { s_settings.ShowBluetooth = (uint8_t)t->value->int32; settings_changed = true; }
 
+  t = dict_find(iterator, MESSAGE_KEY_ShowCountdown);
+  if (t) { s_settings.ShowCountdown = (uint8_t)t->value->int32; settings_changed = true; }
+
   t = dict_find(iterator, MESSAGE_KEY_DateFormat);
   if (t) {
     s_settings.DateFormat = (t->type == TUPLE_CSTRING)
@@ -537,7 +561,7 @@ static void main_window_load(Window *window) {
   s_time_h   = 48;
 #endif
   s_date_h   = large ? 30 : 20;
-  s_date_px  = large ? w * 10 / 100 : w * 17 / 100;
+  s_date_px  = large ? w * 12 / 100 : w * 17 / 100;
 
   // ---- Weather (top-right) ----
   int weather_x = w / 2;
