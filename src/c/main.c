@@ -15,7 +15,8 @@ typedef struct {
   uint8_t ShowBluetooth;      // 1 = visible (default), 0 = hidden
   uint8_t DateFormat;         // 0-5 = format index, 6 = hidden
   uint8_t ScrollSpeed;        // 0=off, 1=slow, 2=medium, 3=fast
-  uint8_t ShowCountdown;      // 1=visible (default), 0=hidden
+  uint8_t ShowCountdown;           // 1=visible (default), 0=hidden
+  uint8_t ShowCountdownMinutes;    // 1=show minutes too (e.g. 2h 30m), 0=hours only
 } ClaySettings;
 
 static ClaySettings s_settings;
@@ -77,7 +78,8 @@ static void prv_default_settings(void) {
   s_settings.ShowBluetooth       = 1;
   s_settings.DateFormat          = 0;
   s_settings.ScrollSpeed         = 1;
-  s_settings.ShowCountdown       = 1;
+  s_settings.ShowCountdown        = 1;
+  s_settings.ShowCountdownMinutes = 0;
 }
 
 static void prv_save_settings(void) {
@@ -376,8 +378,13 @@ static void prv_update_event_display(void) {
   if (show_card) {
     // "In X hours" / "In X min" label
     if (s_event_hour > 0) {
-      snprintf(s_countdown_label_buf, sizeof(s_countdown_label_buf),
-               s_event_hour == 1 ? "In 1 hour" : "In %d hours", s_event_hour);
+      if (s_settings.ShowCountdownMinutes && s_event_minute > 0) {
+        snprintf(s_countdown_label_buf, sizeof(s_countdown_label_buf),
+                 "In %dh %dm", s_event_hour, s_event_minute);
+      } else {
+        snprintf(s_countdown_label_buf, sizeof(s_countdown_label_buf),
+                 s_event_hour == 1 ? "In 1 hour" : "In %d hours", s_event_hour);
+      }
     } else {
       snprintf(s_countdown_label_buf, sizeof(s_countdown_label_buf),
                s_event_minute == 1 ? "In 1 min" : "In %d min", s_event_minute);
@@ -473,6 +480,9 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 
   t = dict_find(iterator, MESSAGE_KEY_ShowCountdown);
   if (t) { s_settings.ShowCountdown = (uint8_t)t->value->int32; settings_changed = true; }
+
+  t = dict_find(iterator, MESSAGE_KEY_ShowCountdownMinutes);
+  if (t) { s_settings.ShowCountdownMinutes = (uint8_t)t->value->int32; settings_changed = true; }
 
   t = dict_find(iterator, MESSAGE_KEY_DateFormat);
   if (t) {

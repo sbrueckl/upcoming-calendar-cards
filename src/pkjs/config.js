@@ -131,6 +131,12 @@ module.exports = [
         "defaultValue": true
       },
       {
+        "type": "toggle",
+        "messageKey": "ShowCountdownMinutes",
+        "label": "Show minutes (e.g. 2h 30m)",
+        "defaultValue": false
+      },
+      {
         "type": "select",
         "messageKey": "CountdownPosition",
         "label": "Countdown position",
