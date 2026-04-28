@@ -312,7 +312,6 @@ static void prv_scroll_tick(void *context) {
     return;
   }
 
-  GRect cb  = layer_get_bounds(s_card_layer);
   int ci_px = CARD_INNER_PX;
   layer_set_frame(text_layer_get_layer(s_event_title_layer),
     GRect(ci_px - s_scroll_offset, s_scroll_line_y, 320, s_scroll_line_h));
@@ -329,8 +328,8 @@ static void prv_accel_tap_handler(AccelAxisType axis, int32_t direction) {
   int card_h = cb.size.h;
   int card_w = cb.size.w;
   int ci_px  = CARD_INNER_PX;
+  int ci_w   = card_w - 2 * ci_px;
 
-  // Single-line height and vertical center within the title area
   s_scroll_line_h = (card_h >= 90) ? 34 : 22;
   bool show_lbl   = s_settings.ShowCountdown;
   int title_area_top, title_area_h;
@@ -347,18 +346,26 @@ static void prv_accel_tap_handler(AccelAxisType axis, int32_t direction) {
   s_scroll_line_y = title_area_top + (title_area_h - s_scroll_line_h) / 2;
   if (s_scroll_line_y < title_area_top) s_scroll_line_y = title_area_top;
 
-  // Stop when text has scrolled fully past the left edge of the card content
-  // char width estimate: ~15px large font, ~11px small font
-  int char_w = (card_h >= 90) ? 15 : 11;
-  int text_w = (int)strlen(s_event_title) * char_w;
-  s_scroll_max = ci_px + text_w;
+  GFont title_font = fonts_get_system_font(
+    (card_h >= 90) ? FONT_KEY_GOTHIC_28_BOLD : FONT_KEY_GOTHIC_18_BOLD);
 
-  // Set initial centered frame before first tick
+  // Don't scroll if text fits on one line
+  GSize fit = graphics_text_layout_get_content_size(
+    s_event_title, title_font, GRect(0, 0, ci_w, s_scroll_line_h),
+    GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft);
+  if (fit.w <= ci_w) return;
+
+  // Measure actual text width for accurate stop condition
+  GSize sz = graphics_text_layout_get_content_size(
+    s_event_title, title_font, GRect(0, 0, 400, s_scroll_line_h),
+    GTextOverflowModeTrailingEllipsis, GTextAlignmentLeft);
+  s_scroll_max = sz.w;
+
   layer_set_frame(text_layer_get_layer(s_event_title_layer),
     GRect(ci_px, s_scroll_line_y, 320, s_scroll_line_h));
 
   s_scroll_offset = 0;
-  s_scroll_timer  = app_timer_register(50, prv_scroll_tick, NULL);
+  s_scroll_timer  = app_timer_register(1000, prv_scroll_tick, NULL);
 }
 
 // ---- Event display ----
