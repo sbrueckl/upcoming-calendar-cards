@@ -206,8 +206,21 @@ static void prv_apply_card_layout(void) {
 
   layer_set_frame(text_layer_get_layer(s_countdown_label_layer),
     GRect(ci_px, lbl_y, ci_w, lbl_h));
+
+  // Vertically center the title within its area based on actual rendered height
+  GFont title_font = fonts_get_system_font(
+    (card_h >= 90) ? FONT_KEY_GOTHIC_28_BOLD : FONT_KEY_GOTHIC_18_BOLD);
+  int actual_h = title_h;
+  if (s_event_title[0] != '\0') {
+    GSize sz = graphics_text_layout_get_content_size(
+      s_event_title, title_font, GRect(0, 0, ci_w, title_h),
+      GTextOverflowModeWordWrap, GTextAlignmentLeft);
+    if (sz.h > 0 && sz.h < title_h) actual_h = sz.h;
+  }
+  int centered_y = title_y + (title_h - actual_h) / 2;
+
   layer_set_frame(text_layer_get_layer(s_event_title_layer),
-    GRect(ci_px, title_y, ci_w, title_h));
+    GRect(ci_px, centered_y, ci_w, actual_h));
 }
 
 // ---- Dynamic layout (repositions time+date when card shown/hidden) ----
