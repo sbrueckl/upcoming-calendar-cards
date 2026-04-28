@@ -189,8 +189,13 @@ static void prv_apply_layout(bool show_card) {
 
   layer_set_frame(text_layer_get_layer(s_time_layer),
     GRect(0, time_y, w, s_time_h));
-  layer_set_frame(text_layer_get_layer(s_date_layer),
-    GRect(s_date_px, date_y, w - s_date_px, s_date_h));
+  if (is_round) {
+    layer_set_frame(text_layer_get_layer(s_date_layer),
+      GRect(0, date_y, w, s_date_h));
+  } else {
+    layer_set_frame(text_layer_get_layer(s_date_layer),
+      GRect(s_date_px, date_y, w - s_date_px, s_date_h));
+  }
 }
 
 // ---- Time / Date ----
@@ -419,7 +424,7 @@ static void main_window_load(Window *window) {
   s_time_h   = 48;
 #endif
   s_date_h   = large ? 30 : 20;
-  s_date_px  = w * 18 / 100;
+  s_date_px  = large ? w * 10 / 100 : w * 17 / 100;
 
   // ---- Weather (top-right) ----
   int weather_x = w / 2;
@@ -481,7 +486,8 @@ static void main_window_load(Window *window) {
   text_layer_set_text_color(s_date_layer, s_settings.TextColor);
   text_layer_set_font(s_date_layer, fonts_get_system_font(
     large ? FONT_KEY_GOTHIC_28_BOLD : FONT_KEY_GOTHIC_18_BOLD));
-  text_layer_set_text_alignment(s_date_layer, GTextAlignmentLeft);
+  text_layer_set_text_alignment(s_date_layer,
+    is_round ? GTextAlignmentCenter : GTextAlignmentLeft);
 
   // Weather: top-right
   s_weather_layer = text_layer_create(
